@@ -13,7 +13,8 @@
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
         .input-group input, .input-group select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 15px; background: #002b5e; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn { width: 100%; padding: 15px; background: #002b5e; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn:hover { opacity: 0.9; }
         
         #dashboard-section { display: none; }
         .tab-menu { display: flex; border-bottom: 2px solid #eee; margin-bottom: 30px; overflow-x: auto; }
@@ -22,12 +23,19 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        .event-form { background: #f8f9fa; padding: 30px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #eee; }
+        .event-form { background: #f8f9fa; padding: 30px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #eee; position: relative; }
+        
+        /* 취소 버튼 (수정 모드일 때만 보임) */
+        .btn-cancel-edit { display: none; background: #666; color: #fff; padding: 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+
         .event-list { list-style: none; padding: 0; }
         .event-item { background: #fff; border: 1px solid #ddd; padding: 20px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .action-btns { display: flex; gap: 5px; }
+        .btn-edit { background: #5cb85c; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
         .btn-delete { background: #d9534f; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
         
         .editor-container { height: 300px; background: #fff; margin-bottom: 20px; }
+        .html-source { display: none; width: 100%; height: 300px; font-family: monospace; padding: 15px; border: 1px solid #ccc; border-radius: 8px; line-height: 1.5; margin-bottom: 20px; box-sizing: border-box; }
         .thumbnail-preview { margin-top: 10px; max-width: 200px; border-radius: 8px; display: none; }
     </style>
 </head>
@@ -36,67 +44,84 @@
     <div class="admin-container">
         <h1><span style="color:#ff6b4a;">서프마린</span> 통합 관리자</h1>
 
+        <!-- 로그인 폼 -->
         <div id="login-section">
             <div class="input-group"><label>이메일</label><input type="email" id="admin-email"></div>
             <div class="input-group"><label>비밀번호</label><input type="password" id="admin-pw"></div>
             <button class="btn" id="login-btn">로그인</button>
         </div>
 
+        <!-- 대시보드 (메인 화면) -->
         <div id="dashboard-section">
             <div class="tab-menu">
                 <button class="tab-btn active" onclick="openTab('tab-busking')">버스킹 일정</button>
                 <button class="tab-btn" onclick="openTab('tab-pilates')">필라테스 일정</button>
-                <button class="tab-btn" onclick="openTab('tab-notice')">공지사항 등록</button>
-                <button class="tab-btn" onclick="openTab('tab-contest')">대회/행사 등록</button>
+                <button class="tab-btn" onclick="openTab('tab-notice')">공지사항 관리</button>
+                <button class="tab-btn" onclick="openTab('tab-contest')">대회/행사 관리</button>
             </div>
 
-            <!-- 탭 1, 2: 버스킹 & 필라테스 -->
+            <!-- 1. 버스킹 탭 -->
             <div id="tab-busking" class="tab-content active">
                 <div class="event-form">
-                    <h3>새 버스킹 등록</h3>
+                    <h3 id="form-title-busking">새 버스킹 등록</h3>
                     <div class="input-group"><label>날짜</label><input type="date" id="busking-date"></div>
-                    <div class="input-group"><label>내용</label><input type="text" id="busking-title"></div>
+                    <div class="input-group"><label>내용</label><input type="text" id="busking-title" placeholder="예: [정상진행] 선셋 버스킹"></div>
                     <div class="input-group"><label>상태</label><select id="busking-color"><option value="#002b5e">진행 (남색)</option><option value="#d9534f">취소 (빨강)</option></select></div>
-                    <button class="btn" id="btn-add-busking">등록</button>
+                    <button class="btn btn-submit" id="btn-add-busking">등록하기</button>
+                    <button class="btn-cancel-edit" onclick="cancelEdit()">수정 취소하기</button>
                 </div>
                 <ul class="event-list" id="list-busking"></ul>
             </div>
 
+            <!-- 2. 필라테스 탭 -->
             <div id="tab-pilates" class="tab-content">
                 <div class="event-form">
-                    <h3>새 필라테스 등록</h3>
+                    <h3 id="form-title-pilates">새 필라테스 등록</h3>
                     <div class="input-group"><label>날짜</label><input type="date" id="pilates-date"></div>
                     <div class="input-group"><label>내용</label><input type="text" id="pilates-title"></div>
                     <div class="input-group"><label>상태</label><select id="pilates-color"><option value="#8a2be2">진행 (보라색)</option><option value="#d9534f">취소 (빨강)</option></select></div>
-                    <button class="btn" id="btn-add-pilates" style="background:#8a2be2;">등록</button>
+                    <button class="btn btn-submit" id="btn-add-pilates" style="background:#8a2be2;">등록하기</button>
+                    <button class="btn-cancel-edit" onclick="cancelEdit()">수정 취소하기</button>
                 </div>
                 <ul class="event-list" id="list-pilates"></ul>
             </div>
 
-            <!-- 탭 3: 공지사항 -->
+            <!-- 3. 공지사항 탭 -->
             <div id="tab-notice" class="tab-content">
                 <div class="event-form">
-                    <h3>공지사항 작성</h3>
+                    <h3 id="form-title-notice">공지사항 작성</h3>
                     <div class="input-group"><label>제목</label><input type="text" id="notice-title"></div>
-                    <div class="input-group"><label>내용</label><div id="editor-notice" class="editor-container"></div></div>
-                    <button class="btn" id="btn-add-notice">등록</button>
+                    <div class="input-group">
+                        <label>내용</label>
+                        <button type="button" id="btn-toggle-notice" class="btn" style="width:auto; padding:5px 15px; margin-bottom:10px; background:#666; border-radius:5px;">&lt;/&gt; HTML 직접 입력 켜기</button>
+                        <div id="editor-notice" class="editor-container"></div>
+                        <textarea id="html-source-notice" class="html-source"></textarea>
+                    </div>
+                    <button class="btn btn-submit" id="btn-add-notice">공지사항 등록하기</button>
+                    <button class="btn-cancel-edit" onclick="cancelEdit()">수정 취소하기</button>
                 </div>
                 <ul class="event-list" id="list-notice"></ul>
             </div>
 
-            <!-- 탭 4: 대회 및 행사 안내 (신규) -->
+            <!-- 4. 대회/행사 탭 -->
             <div id="tab-contest" class="tab-content">
                 <div class="event-form">
-                    <h3>대회/행사 작성</h3>
+                    <h3 id="form-title-contest">대회/행사 작성</h3>
                     <div class="input-group">
-                        <label>대표 이미지 (썸네일 첨부)</label>
+                        <label>대표 이미지 (썸네일)</label>
                         <input type="file" id="contest-thumb-file" accept="image/*">
                         <img id="contest-thumb-preview" class="thumbnail-preview">
                     </div>
                     <div class="input-group"><label>행사 제목</label><input type="text" id="contest-title"></div>
                     <div class="input-group"><label>행사 일정 (예: 2026.08.15 ~ 08.17)</label><input type="text" id="contest-date"></div>
-                    <div class="input-group"><label>세부 내용 (에디터)</label><div id="editor-contest" class="editor-container"></div></div>
-                    <button class="btn" id="btn-add-contest" style="background:#ff6b4a;">대회/행사 등록</button>
+                    <div class="input-group">
+                        <label>세부 내용</label>
+                        <button type="button" id="btn-toggle-contest" class="btn" style="width:auto; padding:5px 15px; margin-bottom:10px; background:#666; border-radius:5px;">&lt;/&gt; HTML 직접 입력 켜기</button>
+                        <div id="editor-contest" class="editor-container"></div>
+                        <textarea id="html-source-contest" class="html-source"></textarea>
+                    </div>
+                    <button class="btn btn-submit" id="btn-add-contest" style="background:#ff6b4a;">대회/행사 등록하기</button>
+                    <button class="btn-cancel-edit" onclick="cancelEdit()">수정 취소하기</button>
                 </div>
                 <ul class="event-list" id="list-contest"></ul>
             </div>
@@ -105,14 +130,14 @@
         </div>
     </div>
 
-    <!-- 스크립트 로드 -->
+    <!-- 외부 스크립트 -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, getDoc, updateDoc, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // ★ 본인의 파이어베이스 키 삽입 ★
+        // ★ [필수] 본인의 파이어베이스 설정값 붙여넣기 ★
         const firebaseConfig = {
                 apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
                 authDomain: "surfmarine-143fb.firebaseapp.com",
@@ -120,11 +145,18 @@
                 storageBucket: "surfmarine-143fb.firebasestorage.app",
                 messagingSenderId: "846325894079",
                 appId: "1:846325894079:web:83486c9f1f99f3aef4ef0a",
-                measurementId: "G-S4EHTN0B4Z" 
-            };
+                measurementId: "G-S4EHTN0B4Z"
+        };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+
+        // 전역 상태 변수 (수정 모드 관리)
+        window.isEditing = false;
+        window.editingId = null;
+        window.editingCol = null;
+        let base64Thumbnail = ""; 
 
         // 탭 전환
         window.openTab = function(tabName) {
@@ -132,125 +164,273 @@
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             event.currentTarget.classList.add('active');
+            cancelEdit(); // 탭 이동 시 수정 모드 초기화
         };
 
-        // 에디터 2개 초기화
+        // 에디터 초기화
         const toolbarOptions = [['bold', 'italic', 'underline'], [{ 'color': [] }], [{ 'list': 'bullet' }], ['image', 'link']];
         const quillNotice = new Quill('#editor-notice', { theme: 'snow', modules: { toolbar: toolbarOptions } });
         const quillContest = new Quill('#editor-contest', { theme: 'snow', modules: { toolbar: toolbarOptions } });
 
-        // 로그인 / 로그아웃
+        // HTML/에디터 모드 스위칭 함수
+        function setupHtmlToggle(btnId, editorId, sourceId, quillInstance, tabId) {
+            let isHtmlMode = false;
+            document.getElementById(btnId).addEventListener('click', function() {
+                const sourceText = document.getElementById(sourceId);
+                const editorDiv = document.getElementById(editorId);
+                const toolbar = document.querySelector(`#${tabId} .ql-toolbar`);
+                
+                if (!isHtmlMode) {
+                    sourceText.value = quillInstance.root.innerHTML;
+                    editorDiv.style.display = 'none';
+                    if(toolbar) toolbar.style.display = 'none';
+                    sourceText.style.display = 'block';
+                    this.innerHTML = "에디터 모드로 돌아가기";
+                    this.style.background = "#d9534f";
+                } else {
+                    quillInstance.root.innerHTML = sourceText.value;
+                    sourceText.style.display = 'none';
+                    editorDiv.style.display = 'block';
+                    if(toolbar) toolbar.style.display = 'block';
+                    this.innerHTML = "&lt;/&gt; HTML 직접 입력 켜기";
+                    this.style.background = "#666";
+                }
+                isHtmlMode = !isHtmlMode;
+            });
+            // 모드 상태 확인 함수 반환
+            return () => isHtmlMode;
+        }
+
+        const isNoticeHtmlMode = setupHtmlToggle('btn-toggle-notice', 'editor-notice', 'html-source-notice', quillNotice, 'tab-notice');
+        const isContestHtmlMode = setupHtmlToggle('btn-toggle-contest', 'editor-contest', 'html-source-contest', quillContest, 'tab-contest');
+
+        // 로그인 / 로그아웃 처리
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('dashboard-section').style.display = 'block';
-                loadData('busking_events', 'list-busking', 'date');
-                loadData('pilates_events', 'list-pilates', 'date');
-                loadBoard('notices', 'list-notice');
-                loadBoard('contests_events', 'list-contest');
+                loadAllData();
             } else {
                 document.getElementById('login-section').style.display = 'block';
                 document.getElementById('dashboard-section').style.display = 'none';
             }
         });
-        document.getElementById('login-btn').addEventListener('click', () => signInWithEmailAndPassword(auth, document.getElementById('admin-email').value, document.getElementById('admin-pw').value).then(()=>alert("로그인 성공!")).catch(()=>alert("실패")));
+        document.getElementById('login-btn').addEventListener('click', () => signInWithEmailAndPassword(auth, document.getElementById('admin-email').value, document.getElementById('admin-pw').value).then(()=>alert("로그인 성공!")).catch(()=>alert("로그인 실패")));
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // 공통: 캘린더용 추가/로드
-        async function addCalendarEvent(col, dId, tId, cId, lId) {
-            await addDoc(collection(db, col), { date: document.getElementById(dId).value, title: document.getElementById(tId).value, color: document.getElementById(cId).value });
-            alert("등록 완료"); loadData(col, lId, 'date');
+        function loadAllData() {
+            loadData('busking_events', 'list-busking', 'date');
+            loadData('pilates_events', 'list-pilates', 'date');
+            loadBoard('notices', 'list-notice');
+            loadBoard('contests_events', 'list-contest');
         }
-        document.getElementById('btn-add-busking').addEventListener('click', () => addCalendarEvent('busking_events', 'busking-date', 'busking-title', 'busking-color', 'list-busking'));
-        document.getElementById('btn-add-pilates').addEventListener('click', () => addCalendarEvent('pilates_events', 'pilates-date', 'pilates-title', 'pilates-color', 'list-pilates'));
 
-        // 공통: 데이터 로드
+        // ==========================================
+        // 데이터 불러오기 및 (수정/삭제) 버튼 생성
+        // ==========================================
         async function loadData(col, lId, orderField) {
             const list = document.getElementById(lId); list.innerHTML = '';
             const q = query(collection(db, col), orderBy(orderField, "desc"));
             const snaps = await getDocs(q);
             snaps.forEach(doc => {
                 const d = doc.data();
-                list.innerHTML += `<li class="event-item"><div><strong>${d.date || d.title}</strong><br><span>${d.title || d.date}</span></div><button class="btn-delete" data-id="${doc.id}" data-col="${col}">삭제</button></li>`;
+                list.innerHTML += `
+                    <li class="event-item">
+                        <div><strong>${d.date || d.title}</strong><br><span>${d.title || d.date}</span></div>
+                        <div class="action-btns">
+                            <button class="btn-edit" data-id="${doc.id}" data-col="${col}">수정</button>
+                            <button class="btn-delete" data-id="${doc.id}" data-col="${col}">삭제</button>
+                        </div>
+                    </li>`;
             });
-            attachDel();
+            attachActionEvents();
         }
 
         async function loadBoard(col, lId) {
             const list = document.getElementById(lId); list.innerHTML = '';
             const snaps = await getDocs(query(collection(db, col), orderBy("createdAt", "desc")));
             snaps.forEach(doc => {
-                list.innerHTML += `<li class="event-item"><div><strong>${doc.data().title}</strong></div><button class="btn-delete" data-id="${doc.id}" data-col="${col}">삭제</button></li>`;
+                list.innerHTML += `
+                    <li class="event-item">
+                        <div><strong>${doc.data().title}</strong></div>
+                        <div class="action-btns">
+                            <button class="btn-edit" data-id="${doc.id}" data-col="${col}">수정</button>
+                            <button class="btn-delete" data-id="${doc.id}" data-col="${col}">삭제</button>
+                        </div>
+                    </li>`;
             });
-            attachDel();
+            attachActionEvents();
         }
 
-        function attachDel() {
+        function attachActionEvents() {
+            // 삭제 버튼 이벤트
             document.querySelectorAll('.btn-delete').forEach(btn => {
                 const newBtn = btn.cloneNode(true); btn.parentNode.replaceChild(newBtn, btn);
                 newBtn.addEventListener('click', async (e) => {
-                    if(confirm("삭제하시겠습니까?")) {
+                    if(confirm("정말 삭제하시겠습니까?")) {
                         await deleteDoc(doc(db, e.target.getAttribute('data-col'), e.target.getAttribute('data-id')));
-                        location.reload(); // 간편한 새로고침
+                        alert("삭제 완료"); loadAllData();
                     }
+                });
+            });
+
+            // 수정 버튼 이벤트
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                const newBtn = btn.cloneNode(true); btn.parentNode.replaceChild(newBtn, btn);
+                newBtn.addEventListener('click', async (e) => {
+                    const id = e.target.getAttribute('data-id');
+                    const col = e.target.getAttribute('data-col');
+                    await triggerEditMode(id, col);
                 });
             });
         }
 
-        // 공지사항 등록
+        // ==========================================
+        // 수정 모드 진입 (데이터를 폼으로 불러오기)
+        // ==========================================
+        async function triggerEditMode(id, col) {
+            window.isEditing = true;
+            window.editingId = id;
+            window.editingCol = col;
+
+            const docSnap = await getDoc(doc(db, col, id));
+            if(!docSnap.exists()) return;
+            const data = docSnap.data();
+
+            // 모든 폼의 취소버튼 보이기 & 등록버튼 텍스트 변경
+            document.querySelectorAll('.btn-cancel-edit').forEach(btn => btn.style.display = 'block');
+            document.querySelectorAll('.btn-submit').forEach(btn => btn.innerText = "수정 내용 저장하기");
+
+            if (col === 'busking_events') {
+                document.getElementById('form-title-busking').innerText = "버스킹 수정";
+                document.getElementById('busking-date').value = data.date;
+                document.getElementById('busking-title').value = data.title;
+                document.getElementById('busking-color').value = data.color;
+                window.scrollTo(0, 0);
+            } 
+            else if (col === 'pilates_events') {
+                document.getElementById('form-title-pilates').innerText = "필라테스 수정";
+                document.getElementById('pilates-date').value = data.date;
+                document.getElementById('pilates-title').value = data.title;
+                document.getElementById('pilates-color').value = data.color;
+                window.scrollTo(0, 0);
+            } 
+            else if (col === 'notices') {
+                document.getElementById('form-title-notice').innerText = "공지사항 수정";
+                document.getElementById('notice-title').value = data.title;
+                if(isNoticeHtmlMode()) document.getElementById('btn-toggle-notice').click(); // 에디터 모드로 복귀
+                quillNotice.root.innerHTML = data.content;
+                window.scrollTo(0, 0);
+            } 
+            else if (col === 'contests_events') {
+                document.getElementById('form-title-contest').innerText = "대회/행사 수정";
+                document.getElementById('contest-title').value = data.title;
+                document.getElementById('contest-date').value = data.date;
+                if(isContestHtmlMode()) document.getElementById('btn-toggle-contest').click();
+                quillContest.root.innerHTML = data.content;
+                if(data.thumbnail) {
+                    base64Thumbnail = data.thumbnail;
+                    document.getElementById('contest-thumb-preview').src = base64Thumbnail;
+                    document.getElementById('contest-thumb-preview').style.display = 'block';
+                }
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // 수정 취소 (폼 초기화)
+        window.cancelEdit = function() {
+            window.isEditing = false;
+            window.editingId = null;
+            window.editingCol = null;
+            base64Thumbnail = "";
+            
+            // 입력창 초기화
+            document.querySelectorAll('input[type="text"], input[type="date"]').forEach(i => i.value = '');
+            quillNotice.root.innerHTML = '';
+            quillContest.root.innerHTML = '';
+            document.getElementById('contest-thumb-preview').style.display = 'none';
+
+            // 버튼 초기화
+            document.querySelectorAll('.btn-cancel-edit').forEach(btn => btn.style.display = 'none');
+            document.getElementById('btn-add-busking').innerText = "등록하기";
+            document.getElementById('btn-add-pilates').innerText = "등록하기";
+            document.getElementById('btn-add-notice').innerText = "공지사항 등록하기";
+            document.getElementById('btn-add-contest').innerText = "대회/행사 등록하기";
+            
+            document.getElementById('form-title-busking').innerText = "새 버스킹 등록";
+            document.getElementById('form-title-pilates').innerText = "새 필라테스 등록";
+            document.getElementById('form-title-notice').innerText = "공지사항 작성";
+            document.getElementById('form-title-contest').innerText = "대회/행사 작성";
+        }
+
+        // ==========================================
+        // 저장 및 업데이트 로직
+        // ==========================================
+        async function saveEvent(col, dId, tId, cId) {
+            const payload = { date: document.getElementById(dId).value, title: document.getElementById(tId).value, color: document.getElementById(cId).value };
+            if(!payload.date || !payload.title) return alert("입력값을 확인하세요.");
+            
+            if(window.isEditing && window.editingCol === col) {
+                await updateDoc(doc(db, col, window.editingId), payload); alert("수정 완료");
+            } else {
+                await addDoc(collection(db, col), payload); alert("등록 완료");
+            }
+            cancelEdit(); loadAllData();
+        }
+        document.getElementById('btn-add-busking').addEventListener('click', () => saveEvent('busking_events', 'busking-date', 'busking-title', 'busking-color'));
+        document.getElementById('btn-add-pilates').addEventListener('click', () => saveEvent('pilates_events', 'pilates-date', 'pilates-title', 'pilates-color'));
+
+        // 공지사항 등록/수정
         document.getElementById('btn-add-notice').addEventListener('click', async () => {
-            await addDoc(collection(db, "notices"), { title: document.getElementById('notice-title').value, content: quillNotice.root.innerHTML, date: new Date().toISOString().split('T')[0], createdAt: serverTimestamp() });
-            alert("공지 등록 완료"); location.reload();
+            const title = document.getElementById('notice-title').value;
+            const content = isNoticeHtmlMode() ? document.getElementById('html-source-notice').value : quillNotice.root.innerHTML;
+            if(!title || !content) return alert("입력하세요.");
+            
+            const payload = { title, content, date: new Date().toISOString().split('T')[0] };
+            
+            if(window.isEditing && window.editingCol === 'notices') {
+                await updateDoc(doc(db, "notices", window.editingId), payload); alert("공지사항 수정 완료");
+            } else {
+                payload.createdAt = serverTimestamp();
+                await addDoc(collection(db, "notices"), payload); alert("공지사항 등록 완료");
+            }
+            cancelEdit(); loadAllData();
         });
 
-        // ==========================================
-        // ★ 대회/행사 등록 로직 (이미지 Base64 변환 포함)
-        // ==========================================
-        let base64Thumbnail = ""; 
-
-        // 이미지 파일 선택 시 미리보기 및 압축 변환
+        // 썸네일 처리
         document.getElementById('contest-thumb-file').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if(!file) return;
+            const file = event.target.files[0]; if(!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                const img = new Image();
-                img.src = e.target.result;
+                const img = new Image(); img.src = e.target.result;
                 img.onload = function() {
-                    // 데이터베이스 용량 절약을 위한 이미지 리사이징 (최대 800px)
-                    const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 800;
-                    const scaleSize = MAX_WIDTH / img.width;
-                    canvas.width = MAX_WIDTH;
-                    canvas.height = img.height * scaleSize;
-                    const ctx = canvas.getContext('2d');
+                    const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+                    canvas.width = 800; canvas.height = img.height * (800 / img.width);
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    
-                    base64Thumbnail = canvas.toDataURL('image/jpeg', 0.7); // 압축
-                    const preview = document.getElementById('contest-thumb-preview');
-                    preview.src = base64Thumbnail;
-                    preview.style.display = 'block';
+                    base64Thumbnail = canvas.toDataURL('image/jpeg', 0.7);
+                    document.getElementById('contest-thumb-preview').src = base64Thumbnail;
+                    document.getElementById('contest-thumb-preview').style.display = 'block';
                 }
             };
             reader.readAsDataURL(file);
         });
 
-        // 대회/행사 최종 등록
+        // 대회/행사 등록/수정
         document.getElementById('btn-add-contest').addEventListener('click', async () => {
             const title = document.getElementById('contest-title').value;
             const date = document.getElementById('contest-date').value;
-            const content = quillContest.root.innerHTML;
-            if(!title || !date) return alert("제목과 일정을 입력하세요.");
+            const content = isContestHtmlMode() ? document.getElementById('html-source-contest').value : quillContest.root.innerHTML;
+            if(!title || !date) return alert("제목/일정 입력 필요.");
 
-            await addDoc(collection(db, "contests_events"), {
-                title: title,
-                date: date,
-                thumbnail: base64Thumbnail,
-                content: content,
-                createdAt: serverTimestamp()
-            });
-            alert("대회/행사 등록 완료"); 
-            location.reload();
+            const payload = { title, date, content, thumbnail: base64Thumbnail };
+
+            if(window.isEditing && window.editingCol === 'contests_events') {
+                await updateDoc(doc(db, "contests_events", window.editingId), payload); alert("대회/행사 수정 완료");
+            } else {
+                payload.createdAt = serverTimestamp();
+                await addDoc(collection(db, "contests_events"), payload); alert("대회/행사 등록 완료");
+            }
+            cancelEdit(); loadAllData();
         });
     </script>
 </body>
