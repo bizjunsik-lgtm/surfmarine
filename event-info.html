@@ -141,57 +141,83 @@
         </div>
     </div>
 
+    <!-- 파이어베이스 스크립트 시작 -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // ★ 파이어베이스 키 입력 ★
-        const firebaseConfig = 
-        { apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
-            authDomain: "surfmarine-143fb.firebaseapp.com",
-            projectId: "surfmarine-143fb",
-            storageBucket: "surfmarine-143fb.firebasestorage.app",
-            messagingSenderId: "846325894079",
-            appId: "1:846325894079:web:83486c9f1f99f3aef4ef0a",
-            measurementId: "G-S4EHTN0B4Z"};
+        // ★ [중요] 여기에 본인의 파이어베이스 설정값을 반드시 덮어씌워 주세요! ★
+        const firebaseConfig = {
+                apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
+                authDomain: "surfmarine-143fb.firebaseapp.com",
+                projectId: "surfmarine-143fb",
+                storageBucket: "surfmarine-143fb.firebasestorage.app",
+                messagingSenderId: "846325894079",
+                appId: "1:846325894079:web:83486c9f1f99f3aef4ef0a",
+                measurementId: "G-S4EHTN0B4Z"
+        };
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         document.addEventListener('DOMContentLoaded', async function() {
             const gridUI = document.getElementById('event-grid');
-            const q = query(collection(db, "contests_events"), orderBy("createdAt", "desc"));
-            const querySnapshot = await getDocs(q);
             
-            gridUI.innerHTML = '';
-            if (querySnapshot.empty) { gridUI.innerHTML = '<p style="grid-column: 1 / -1; text-align:center;">등록된 행사가 없습니다.</p>'; return; }
-
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                const card = document.createElement('div');
-                card.className = 'event-card';
-                // 기본 썸네일 제공
-                const thumb = data.thumbnail || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80';
+            try {
+                // 1. 파이어베이스에서 데이터 불러오기 시도
+                const q = query(collection(db, "contests_events"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
                 
-                card.innerHTML = `
-                    <img src="${thumb}" alt="썸네일">
-                    <div class="event-card-body">
-                        <h3>${data.title}</h3>
-                        <p><i class="fa-regular fa-calendar-check"></i> ${data.date}</p>
+                gridUI.innerHTML = ''; // 로딩 스피너 제거
+
+                // 2. 등록된 행사가 없을 경우
+                if (querySnapshot.empty) { 
+                    gridUI.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; padding: 50px; color:#666;">등록된 행사가 없습니다.</p>'; 
+                    return; 
+                }
+
+                // 3. 행사 카드 생성
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const card = document.createElement('div');
+                    card.className = 'event-card';
+                    
+                    // 썸네일 이미지가 없을 경우 기본 이미지 적용
+                    const thumb = data.thumbnail || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80';
+                    
+                    card.innerHTML = `
+                        <img src="${thumb}" alt="행사 썸네일">
+                        <div class="event-card-body">
+                            <h3>${data.title}</h3>
+                            <p><i class="fa-regular fa-calendar-check"></i> ${data.date}</p>
+                        </div>
+                    `;
+                    
+                    // 카드 클릭 시 모달(팝업) 열기
+                    card.addEventListener('click', () => {
+                        document.getElementById('modal-image').src = thumb;
+                        document.getElementById('modal-image').style.display = data.thumbnail ? 'block' : 'none';
+                        document.getElementById('modal-title').innerText = data.title;
+                        document.getElementById('modal-date').innerText = "일정: " + data.date;
+                        document.getElementById('modal-body').innerHTML = data.content || "상세 내용이 없습니다.";
+                        document.getElementById('event-modal').classList.add('active');
+                    });
+                    
+                    gridUI.appendChild(card);
+                });
+
+            } catch (error) {
+                // 에러 발생 시 로딩바를 없애고 원인을 화면에 빨간 글씨로 출력합니다.
+                console.error("Firebase 로딩 에러:", error);
+                gridUI.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align:center; padding: 50px; color:#d9534f; background:#fff; border-radius:10px; border:1px solid #ffcccc;">
+                        <i class="fa-solid fa-triangle-exclamation" style="font-size:30px; margin-bottom:15px;"></i><br>
+                        <strong>데이터를 불러오지 못했습니다.</strong><br><br>
+                        <span style="font-size:14px; color:#666;">[에러 내용] ${error.message}</span><br><br>
+                        * 팁: 코드 안의 <b>firebaseConfig (API 키)</b>가 정확히 입력되었는지 확인해 주세요.
                     </div>
                 `;
-                
-                // 카드 클릭 시 모달 열기
-                card.addEventListener('click', () => {
-                    document.getElementById('modal-image').src = thumb;
-                    document.getElementById('modal-image').style.display = data.thumbnail ? 'block' : 'none';
-                    document.getElementById('modal-title').innerText = data.title;
-                    document.getElementById('modal-date').innerText = "일정: " + data.date;
-                    document.getElementById('modal-body').innerHTML = data.content;
-                    document.getElementById('event-modal').classList.add('active');
-                });
-                
-                gridUI.appendChild(card);
-            });
+            }
 
             // 모달 닫기 로직
             document.getElementById('close-modal').addEventListener('click', () => {
