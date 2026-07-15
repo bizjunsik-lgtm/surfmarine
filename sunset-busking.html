@@ -101,6 +101,76 @@
         </div>
     </section>
 
+<!-- 버스킹 일정 달력 섹션 -->
+<section class="camp-section" style="background-color: #fff; padding: 60px 20px;">
+    <div class="camp-container" style="max-width: 900px; margin: 0 auto;">
+        <h2 style="font-size: 32px; color: #002b5e; font-weight: 900; margin-bottom: 20px; text-align: center;">버스킹 일정 캘린더</h2>
+        <p style="color: #d9534f; font-size: 16px; margin-bottom: 40px; text-align: center; font-weight:bold;">※ 기상 상황(우천, 풍랑주의보 등)에 따라 일정이 실시간으로 취소될 수 있습니다.</p>
+        
+        <!-- FullCalendar 라이브러리 CSS/JS 불러오기 -->
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+        
+        <!-- 달력이 그려질 영역 -->
+        <div id='calendar'></div>
+    </div>
+</section>
+
+<!-- 파이어베이스 데이터 불러와서 달력에 그리기 -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // ★ 관리자 페이지와 동일한 firebaseConfig 입력 ★
+    const firebaseConfig = {
+        apiKey: "AIzaSyB-xxxxxxxxxxxxxxxxxxxx",
+        authDomain: "surfmarine-web.firebaseapp.com",
+        projectId: "surfmarine-web",
+        storageBucket: "surfmarine-web.appspot.com",
+        messagingSenderId: "123456789",
+        appId: "1:123456789:web:abcdefg"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        // 1. 파이어베이스에서 일정 데이터 가져오기
+        const eventsArray = [];
+        const querySnapshot = await getDocs(collection(db, "busking_events"));
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            eventsArray.push({
+                title: data.title,
+                start: data.date,
+                color: data.color // 관리자에서 지정한 색상 (남색 또는 빨강)
+            });
+        });
+
+        // 2. FullCalendar 실행
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'ko', // 한국어 설정
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'today'
+            },
+            events: eventsArray // 파이어베이스에서 가져온 일정 배열 삽입
+        });
+        
+        calendar.render();
+    });
+</script>
+
+<style>
+    /* 캘린더 커스텀 스타일 */
+    #calendar { max-width: 900px; margin: 0 auto; font-family: 'Noto Sans KR', sans-serif; }
+    .fc-toolbar-title { font-size: 24px !important; color: #002b5e !important; font-weight: bold; }
+    .fc-event { cursor: default; border: none; padding: 3px; font-size: 12px; }
+    .fc-button-primary { background-color: #002b5e !important; border: none !important; }
+</style>
+
     <!-- 푸터 영역 (index.html의 푸터와 100% 동일하게 복사) -->
    <footer>
         <div class="footer-content">
