@@ -1,0 +1,523 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- 헤더 및 내비게이션 --- */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 80px;
+}
+
+.logo a {
+    font-size: 24px;
+    font-weight: 800;
+    color: #333;
+}
+
+.logo span {
+    color: #ff0000;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links > li {
+    position: relative;
+}
+
+.nav-links > li > a {
+    padding: 30px 20px;
+    display: block;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.nav-links > li > a:hover {
+    color: #007bff;
+}
+
+.nav-links i {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* 하위 메뉴 (드롭다운) */
+.submenu {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    background-color: #fff;
+    list-style: none;
+    width: 200px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    transform: translateY(10px);
+}
+
+.submenu li a {
+    display: block;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 15px;
+}
+
+.submenu li a:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.dropdown:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 모바일 햄버거 버튼 */
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* --- 메인 히어로 섹션 --- */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('C:/Users/LJ/OneDrive/바탕 화면/홈페이지/main.jpg') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 0 20px;
+    position: relative; /* ★ 하단 버튼을 절대 위치로 고정하기 위해 추가 */
+}
+
+/* ... (hero-content 관련 코드는 기존 유지) ... */
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* --- 프로그램 섹션 --- */
+.programs {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.programs h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.card-image {
+    height: 200px;
+    background-color: #ccc;
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-1 { background-image: url('https://images.unsplash.com/photo-1526344966-89049886b28d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'); }
+.bg-2 { background-image: url('https://images.unsplash.com/photo-1414490929659-9a12b7e31907?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'); }
+.bg-3 { background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'); }
+
+.card h3 {
+    margin: 20px 0 10px;
+    font-size: 20px;
+}
+
+.card p {
+    padding: 0 20px 30px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* --- 푸터 --- */
+footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 40px 20px 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-info h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.footer-social a {
+    color: #fff;
+    font-size: 24px;
+    margin-left: 15px;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+/* =========================================
+   미디어 쿼리 (모바일 반응형 설정)
+========================================= */
+@media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .nav-links {
+        position: absolute;
+        right: -100%;
+        top: 80px;
+        height: calc(100vh - 80px);
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        transition: right 0.4s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
+
+    .nav-links.nav-active {
+        right: 0;
+    }
+
+    .nav-links > li > a {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* 모바일에서는 드롭다운을 아래로 펼치기 */
+    .submenu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        display: none;
+        transform: none;
+        background-color: #f8f9fa;
+    }
+
+    .submenu.active {
+        display: block;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .cards-container {
+        flex-direction: column;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+}
+
+/* 햄버거 버튼 애니메이션 클래스 */
+.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+.toggle .line2 { opacity: 0; }
+.toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+
+/* --- 메인 화면 정사각형 퀵링크 버튼 (위치 수정됨) --- */
+.quick-link-wrap {
+    position: absolute; /* 부모(.hero)를 기준으로 위치 고정 */
+    bottom: 50px;       /* 바닥에서 50px 띄움 (원하는 만큼 숫자 조절 가능) */
+    left: 50%;          /* 화면 가운데 정렬 시작점 */
+    transform: translateX(-50%); /* 정확히 정중앙에 오도록 보정 */
+    width: 100%;        /* 좁은 화면에서 틀어짐 방지 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; 
+    z-index: 10;        /* 다른 요소들보다 위로 올라오도록 설정 */
+}
+
+.quick-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 110px;
+    border-radius: 15px; 
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.quick-btn:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.quick-btn i {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.quick-btn .icon-text {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    line-height: 1;
+    font-family: 'Arial Black', sans-serif;
+}
+
+.quick-btn span:last-child {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.bg-naver-book { background-color: #2DB400; } 
+.bg-phone { background-color: #00B4FF; }      
+.bg-kakao { background-color: #FAE100; color: #3A1D1D; } 
+.bg-naver-talk { background-color: #00C73C; } 
+
+@media screen and (max-width: 500px) {
+    .quick-link-wrap {
+        gap: 10px;
+        bottom: 30px; /* 모바일에서는 바닥 여백을 조금 줄임 */
+    }
+    
+    .quick-btn {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+    }
+    
+    .quick-btn i {
+        font-size: 30px;
+        margin-bottom: 5px;
+    }
+
+    .quick-btn .icon-text {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .quick-btn span:last-child {
+        font-size: 12px;
+    }
+}
+
+/* 각 버튼별 고유 배경색 및 글자색 (레퍼런스 이미지 참고) */
+.bg-naver-book { background-color: #2DB400; } /* 네이버 예약 초록 */
+.bg-phone { background-color: #00B4FF; }      /* 전화번호 파랑 */
+.bg-kakao { background-color: #FAE100; color: #3A1D1D; } /* 카카오톡 노랑 (글자색 다름) */
+.bg-naver-talk { background-color: #00C73C; } /* 네이버 톡톡 밝은초록 */
+
+
+/* 모바일 화면에서 버튼 크기 조정 */
+@media screen and (max-width: 500px) {
+    .quick-link-wrap {
+        gap: 10px;
+        flex-wrap: wrap; /* 화면이 너무 좁으면 두 줄로 떨어지게 설정 */
+    }
+    
+    .quick-btn {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+    }
+    
+    .quick-btn i {
+        font-size: 30px;
+        margin-bottom: 5px;
+    }
+
+    .quick-btn .icon-text {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    .quick-btn span:last-child {
+        font-size: 12px;
+    }
+}
+/* =========================================
+   프로그램 상세 & 가격 안내 카드 스타일 (추가)
+========================================= */
+.program-wrapper {
+    background-color: #f4f8fd; /* 이미지와 유사한 연한 파란색 배경 */
+    padding: 60px 20px;
+}
+
+.program-card {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    display: flex;
+    overflow: hidden;
+}
+
+.program-info {
+    flex: 1;
+    padding: 40px;
+    position: relative;
+}
+
+.program-badge {
+    background-color: #002b5e; /* 이미지의 진한 남색 */
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.program-title {
+    font-size: 32px;
+    color: #002b5e;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.program-subtitle {
+    color: #0056b3;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.program-price {
+    font-size: 36px;
+    color: #002b5e;
+    font-weight: 900;
+    text-align: right;
+    margin-top: 20px;
+}
+
+.program-price span {
+    font-size: 18px;
+    color: #666;
+}
+
+.program-price .strike {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.program-img {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    min-height: 300px;
+}
+
+.program-desc {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    padding: 20px;
+}
+
+/* 모바일 대응 */
+@media screen and (max-width: 768px) {
+    .program-card {
+        flex-direction: column;
+    }
+    .program-img {
+        min-height: 250px;
+    }
+}

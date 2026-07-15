@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURF MARINE | 나의 실력 찾기</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 서브페이지 공통 스타일 */
+        .sub-header {
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-top: 80px;
+        }
+
+        .sub-content {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            min-height: 500px;
+            text-align: center;
+        }
+        .sub-header { height: 300px; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover; display: flex; align-items: center; justify-content: center; color: #fff; margin-top: 80px; }
+        .sub-content { max-width: 1200px; margin: 60px auto; padding: 0 20px; min-height: 500px; text-align: center; }
+        .sub-content h2 { font-size: 32px; margin-bottom: 20px; color: #002b5e; }
+        .sub-content p { color: #666; font-size: 18px; margin-bottom: 50px; }
+
+        /* 인스타그램 링크 버튼 */
+        .insta-btn { display: inline-block; background: #E1306C; color: #fff; padding: 12px 30px; border-radius: 30px; font-weight: bold; font-size: 16px; margin-bottom: 40px; transition: 0.3s; }
+        .insta-btn:hover { background: #C13584; transform: translateY(-3px); }
+        .insta-btn i { margin-right: 8px; font-size: 20px; vertical-align: middle; }
+
+        /* 수동 퍼가기(방법2)용 그리드 스타일 */
+        .manual-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; justify-items: center; margin-top: 40px; }
+        .manual-gallery iframe { border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 영역 (index.html의 헤더와 100% 동일하게 복사) -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">SURF <span>MARINE</span></a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="intro.html">소개</a></li>
+                            <li><a href="advantages.html">장점</a></li>
+                            <li><a href="location.html">오시는길</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
+                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
+                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
+                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="notice.html">공지사항</a></li>
+                            <li><a href="faq.html">자주 묻는 질문</a></li>
+                            <li><a href="gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="find-level.html">나의 실력 찾기</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </header>
+
+
+<section class="sub-header">
+        <h1>갤러리</h1>
+    </section>
+
+    <section class="sub-content">
+        <h2>서프마린의 생생한 순간들</h2>
+        <p>더 많은 영상과 사진은 서프마린 공식 인스타그램에서 확인하세요!</p>
+        
+        <!-- 공식 인스타그램으로 넘어가는 버튼 -->
+        <a href="https://www.instagram.com/surfmarine_busan/" target="_blank" class="insta-btn">
+            <i class="fa-brands fa-instagram"></i> 공식 인스타그램 방문하기
+        </a>
+
+
+        <!-- ========================================== -->
+        <!-- [방법 1] 외부 위젯 (Elfsight 등) 사용 시 -->
+        <!-- ========================================== -->
+        <!-- Elfsight에서 발급받은 코드를 아래에 붙여넣기만 하면 끝납니다. -->
+<!-- Elfsight Instagram Feed | Untitled Instagram Feed -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-64dcfab5-11d6-40d4-83f5-9205f92cb26b" data-elfsight-app-lazy></div>
+        <!-- 예시 (이 코드는 지우고 본인의 코드를 넣으세요) -->
+        <!-- <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script> -->
+
+
+
+        <!-- ========================================== -->
+        <!-- [방법 2] 인스타그램 공식 수동 퍼가기 사용 시 -->
+        <!-- ========================================== -->
+        <!-- 방법 1을 쓰신다면 이 아래의 <div class="manual-gallery"> 영역은 삭제하셔도 됩니다. -->
+        <div class="manual-gallery">
+            <!-- 아래는 인스타그램 '퍼가기'를 통해 가져온 코드 예시입니다. -->
+            <!-- 첫 번째 피드 (사진 또는 릴스) -->
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/여기에_게시물_주소1" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+            
+            <!-- 두 번째 피드 (사진 또는 릴스) -->
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/여기에_게시물_주소2" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+            
+            <!-- 세 번째 피드 (사진 또는 릴스) -->
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/여기에_게시물_주소3" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"></blockquote>
+        </div>
+        <!-- 수동 퍼가기를 작동시키는 필수 스크립트 -->
+        <script async src="//www.instagram.com/embed.js"></script>
+        <!-- ========================================== -->
+
+    </section>
+
+    <!-- 푸터 영역 (index.html의 푸터와 100% 동일하게 복사) -->
+   <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SURF MARINE</h3>
+                <p>부산 수영구 광안해변로 125 우진빌딩 지하1층 서프마린</p>
+                <p>고객센터: 070-7177-8888 | 매일 09:00 - 20:00</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SURF MARINE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

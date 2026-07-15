@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURF MARINE | 나의 실력 찾기</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 서브페이지 공통 스타일 */
+        .sub-header {
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-top: 80px;
+        }
+
+        .sub-content {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            min-height: 500px;
+            text-align: center;
+        }
+
+        /* 퀴즈 UI 스타일 */
+        .quiz-container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 50px 30px;
+            margin-top: 30px;
+        }
+
+        .step-indicator {
+            color: #00B4FF;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        #question-text {
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #333;
+            word-break: keep-all;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .quiz-btn {
+            padding: 15px 40px;
+            font-size: 20px;
+            border: 2px solid #00B4FF;
+            background-color: #fff;
+            color: #00B4FF;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .quiz-btn:hover {
+            background-color: #00B4FF;
+            color: #fff;
+        }
+
+        /* 결과 화면 스타일 */
+        #result-box {
+            display: none;
+        }
+
+        .result-icon {
+            font-size: 60px;
+            color: #00B4FF;
+            margin-bottom: 20px;
+        }
+
+        #result-title {
+            font-size: 32px;
+            color: #222;
+            margin-bottom: 15px;
+        }
+
+        #result-desc {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .action-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background-color: #00B4FF;
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            width: 100%;
+            max-width: 300px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #008ecc;
+        }
+
+        .btn-secondary {
+            background-color: #f1f1f1;
+            color: #555;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 영역 (기존과 동일) -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">SURF <span>MARINE</span></a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="intro.html">소개</a></li>
+                            <li><a href="advantages.html">장점</a></li>
+                            <li><a href="location.html">오시는길</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
+                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
+                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
+                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="notice.html">공지사항</a></li>
+                            <li><a href="faq.html">자주 묻는 질문</a></li>
+                            <li><a href="gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="find-level.html">나의 실력 찾기</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 서브페이지 상단 타이틀 -->
+    <section class="sub-header">
+        <h1>나의 실력 찾기</h1>
+    </section>
+
+    <!-- 실력 찾기 테스트 영역 -->
+    <section class="sub-content">
+        <h2>어떤 패키지가 맞을까요?</h2>
+        <p>간단한 질문에 답하고 나에게 딱 맞는 서프마린 프로그램을 추천받아보세요!</p>
+
+        <div class="quiz-container">
+            <!-- 질문 박스 -->
+            <div id="question-box">
+                <div class="step-indicator" id="step-indicator">Q 1.</div>
+                <h3 id="question-text">패들보드(SUP)나 서핑을 타본 경험이 있으신가요?</h3>
+                <div class="btn-group">
+                    <button class="quiz-btn" onclick="nextQuestion('yes')">네, 있어요</button>
+                    <button class="quiz-btn" onclick="nextQuestion('no')">아니오, 처음이에요</button>
+                </div>
+            </div>
+
+            <!-- 결과 박스 (기본적으로 숨겨짐) -->
+            <div id="result-box">
+                <div class="result-icon"><i class="fa-solid fa-award"></i></div>
+                <h3 id="result-title">결과 타이틀</h3>
+                <p id="result-desc">결과 상세 설명</p>
+                <div class="action-btns">
+                    <a href="#" id="result-link" class="btn-primary">추천 패키지 예약하기</a>
+                    <button class="btn-secondary" onclick="resetQuiz()">다시 테스트하기</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 영역 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SURF MARINE</h3>
+                <p>부산광역시 해운대구 (상세주소 입력)</p>
+                <p>고객센터: 051-123-4567 | 평일 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Surf Marine. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 공통 스크립트 -->
+    <script src="script.js"></script>
+
+    <!-- 퀴즈 로직 자바스크립트 -->
+    <script>
+        // 현재 질문 단계
+        let currentStep = 1;
+
+        // 질문 텍스트 요소를 가져옴
+        const stepIndicator = document.getElementById('step-indicator');
+        const questionText = document.getElementById('question-text');
+        
+        // 화면 박스 요소를 가져옴
+        const questionBox = document.getElementById('question-box');
+        const resultBox = document.getElementById('result-box');
+
+        // 결과 텍스트 요소를 가져옴
+        const resultTitle = document.getElementById('result-title');
+        const resultDesc = document.getElementById('result-desc');
+        const resultLink = document.getElementById('result-link');
+
+        // '예/아니오' 버튼 클릭 시 실행되는 함수
+        function nextQuestion(answer) {
+            if (currentStep === 1) {
+                if (answer === 'yes') {
+                    // 경험이 있는 경우
+                    currentStep = 2;
+                    stepIndicator.innerText = "Q 2.";
+                    questionText.innerText = "바다에서 혼자 방향 전환과 패들링이 원활하게 가능하신가요?";
+                } else {
+                    // 경험이 없는 경우
+                    currentStep = 3;
+                    stepIndicator.innerText = "Q 2.";
+                    questionText.innerText = "물이나 바다에 대한 두려움이 심한 편이신가요?";
+                }
+            } 
+            else if (currentStep === 2) {
+                // 유경험자의 두번째 질문 답변
+                if (answer === 'yes') showResult('expert');  // 잘 탄다
+                else showResult('normal');                   // 탈줄은 아는데 미숙하다
+            } 
+            else if (currentStep === 3) {
+                // 무경험자의 두번째 질문 답변
+                if (answer === 'yes') showResult('care');    // 물이 무섭다
+                else showResult('normal');                   // 처음이지만 무섭진 않다
+            }
+        }
+
+        // 결과를 화면에 렌더링하는 함수
+        function showResult(type) {
+            questionBox.style.display = "none";
+            resultBox.style.display = "block";
+
+            if (type === 'expert') {
+                resultTitle.innerText = "🌊 자유 영혼형!";
+                resultDesc.innerText = "이미 패들보드의 매력을 알고 계시네요! 아름다운 뷰와 함께 즐기는 '선셋 패들보드'나 '선라이즈 패들보드'를 강력히 추천합니다. 자유롭게 바다를 누벼보세요!";
+                resultLink.href = "sunset-sup.html"; 
+                resultLink.innerText = "선셋 패들보드 예약하기";
+            } else if (type === 'normal') {
+                resultTitle.innerText = "🏄‍♂️ 기초 탄탄형!";
+                resultDesc.innerText = "기본기를 짚고 넘어가면 훨씬 더 재밌게 탈 수 있어요! 강사님의 꼼꼼한 교육 후 여유롭게 즐길 수 있는 '교육+렌탈 패들보드' 패키지가 딱 맞습니다.";
+                resultLink.href = "edu-rental-sup.html";
+                resultLink.innerText = "교육+렌탈 패키지 예약하기";
+            } else if (type === 'care') {
+                resultTitle.innerText = "🛟 안심 케어형!";
+                resultDesc.innerText = "물이 무서워도 걱정하지 마세요! 전문 강사님이 옆에서 밀착 케어하며 안전하게 알려드리는 '교육+렌탈 패들보드 (초보자 집중)' 과정으로 시작해 보세요.";
+                resultLink.href = "edu-rental-sup.html";
+                resultLink.innerText = "입문자 집중 강습 예약하기";
+            }
+        }
+
+        // 다시 테스트하기 버튼
+        function resetQuiz() {
+            currentStep = 1;
+            stepIndicator.innerText = "Q 1.";
+            questionText.innerText = "패들보드(SUP)나 서핑을 타본 경험이 있으신가요?";
+            
+            resultBox.style.display = "none";
+            questionBox.style.display = "block";
+        }
+    </script>
+</body>
+</html>

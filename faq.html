@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURF MARINE | 나의 실력 찾기</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 서브페이지 공통 스타일 */
+        .sub-header {
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-top: 80px;
+        }
+
+        .sub-content {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            min-height: 500px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 영역 (index.html의 헤더와 100% 동일하게 복사) -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">SURF <span>MARINE</span></a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="intro.html">소개</a></li>
+                            <li><a href="advantages.html">장점</a></li>
+                            <li><a href="location.html">오시는길</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
+                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
+                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
+                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="notice.html">공지사항</a></li>
+                            <li><a href="faq.html">자주 묻는 질문</a></li>
+                            <li><a href="gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="find-level.html">나의 실력 찾기</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- 서브페이지 상단 타이틀 -->
+    <section class="sub-header">
+        <h1>소개</h1>
+    </section>
+
+<!-- faq.html 콘텐츠 영역 -->
+<style>
+    /* FAQ 전용 스타일 (페이지 내 <style> 태그에 추가하거나 style.css에 추가) */
+    .faq-container { max-width: 800px; margin: 50px auto; }
+    .faq-item { margin-bottom: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .faq-question { width: 100%; background: #fff; padding: 20px; font-size: 18px; font-weight: bold; text-align: left; border: none; cursor: pointer; color: #002b5e; display: flex; justify-content: space-between; }
+    .faq-answer { background: #002b5e; color: #fff; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; line-height: 1.6; }
+    .faq-answer p { margin: 20px 0; }
+    .faq-item.active .faq-answer { max-height: 300px; padding: 5px 20px; }
+    .faq-item.active .faq-question { background: #f4f8fd; }
+</style>
+
+<section class="sub-content">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-container">
+        
+        <div class="faq-item">
+            <button class="faq-question">Q. 복장은 어떻게 준비해야하나요? <i class="fa-solid fa-chevron-down"></i></button>
+            <div class="faq-answer">
+                <p>A. 물에 젖어도 괜찮은 편안한 복장이면 충분합니다!<br>래시가드, 반팔·반바지, 가벼운 운동복 등 편한 복장으로 방문해 주세요.<br><br>혹시 마땅한 복장이 없거나 쌀쌀한 날씨가 걱정되신다면, 웻슈트를 10,000원에 대여하실 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Q. 세면도구를 따로 준비해야하나요? <i class="fa-solid fa-chevron-down"></i></button>
+            <div class="faq-answer">
+                <p>A. 별도로 준비하지 않으셔도 됩니다.<br>샴푸, 린스, 바디워시, 폼클렌징은 물론 수건과 드라이기까지 모두 준비되어 있습니다.<br><br>개인 화장품, 선크림, 여벌 옷 등 필요한 개인 용품만 가볍게 챙겨 오시면 됩니다.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Q. 사진은 찍어주시는 건가요? <i class="fa-solid fa-chevron-down"></i></button>
+            <div class="faq-answer">
+                <p>A. 네, 맞습니다.<br>프로그램 종료 후 네이버 밴드를 통해 사진을 공유해 드립니다. 인생샷 전문 강사님들이 직접 촬영한 사진을 업로드해 드리니, 편하게 다운로드하시고 광안리에서의 소중한 추억을 오래 간직해 보세요.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">Q. 비가 와도 강습을 진행하나요? <i class="fa-solid fa-chevron-down"></i></button>
+            <div class="faq-answer">
+                <p>A. 네, 비가 오면 오히려 더 재미있습니다!<br>단순한 우천의 경우에는 정상적으로 강습을 진행합니다.<br><br>다만 태풍, 풍랑주의보, 강풍, 높은 파도 등 안전에 영향을 줄 수 있는 기상악화가 발생할 경우에는 전액 환불 또는 다른 날짜로 일정 변경이 가능합니다.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    // FAQ 열림/닫힘 동작 스크립트
+    const faqs = document.querySelectorAll('.faq-item');
+    faqs.forEach(faq => {
+        faq.addEventListener('click', () => {
+            faq.classList.toggle('active');
+        });
+    });
+</script>
+
+    <!-- 푸터 영역 (index.html의 푸터와 100% 동일하게 복사) -->
+   <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SURF MARINE</h3>
+                <p>부산 수영구 광안해변로 125 우진빌딩 지하1층 서프마린</p>
+                <p>고객센터: 070-7177-8888 | 매일 09:00 - 20:00</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SURF MARINE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

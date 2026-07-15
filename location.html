@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURF MARINE | 나의 실력 찾기</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 서브페이지 공통 스타일 */
+        .sub-header {
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-top: 80px;
+        }
+
+        .sub-content {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            min-height: 500px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 영역 (index.html의 헤더와 100% 동일하게 복사) -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">SURF <span>MARINE</span></a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="intro.html">소개</a></li>
+                            <li><a href="advantages.html">장점</a></li>
+                            <li><a href="location.html">오시는길</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
+                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
+                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
+                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="notice.html">공지사항</a></li>
+                            <li><a href="faq.html">자주 묻는 질문</a></li>
+                            <li><a href="gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="find-level.html">나의 실력 찾기</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- 서브페이지 상단 타이틀 -->
+    <section class="sub-header">
+        <h1>소개</h1>
+    </section>
+
+<!-- 콘텐츠 영역 -->
+    <section class="sub-content">
+        <h2>SURF MARINE 찾아오시는 길</h2>
+        <p>부산 광안리의 푸른 바다, 서프마린으로 오시는 길을 안내해 드립니다.</p>
+        
+        <!-- 지도 출력 영역 -->
+        <div id="map"></div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m5!3m3!1m2!1s0x3568ed007fb79e91%3A0xf38308d2d64988ab!2z7ISc7ZSE66eI66awKHN1cmZpbmcsIHBhZGRsZWJvYXJkKQ!5e0!3m2!1sko!2skr!4v1783996597188!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        
+       <!-- location.html 내부 상세 안내 부분 교체 -->
+<style>
+    /* 오시는 길 리스트 스타일 보강 */
+    .info-list { margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px dashed #ccc; }
+    .info-list h3 { color: #002b5e; font-size: 20px; display: flex; align-items: center; margin-bottom: 10px; }
+    .info-list h3 i { font-size: 24px; margin-right: 10px; color: #fff; background: #002b5e; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+    .info-list p { margin-left: 50px; color: #444; line-height: 1.6; }
+    
+    .contact-box { background: #002b5e; color: #fff; padding: 30px; border-radius: 10px; text-align: center; margin-top: 30px; }
+    .contact-box h2 { font-size: 24px; margin-bottom: 20px; color: #fff; border: none; }
+    .contact-box h2 span { color: #ff5a36; } /* 서프마린 주황색 포인트 */
+    .contact-box p { font-size: 20px; margin: 10px 0; }
+</style>
+
+<div class="location-info">
+    <div class="info-list">
+        <h3><i class="fa-solid fa-car"></i> 자차 이용시</h3>
+        <p>부산광역시 수영구 광안해변로 125<br>(우진빌딩 지하1층, 서프마린)<br><span style="color:#d9534f; font-size:14px;">* 주차공간은 별도로 제공되지 않습니다.</span></p>
+    </div>
+    
+    <div class="info-list">
+        <h3><i class="fa-solid fa-train-subway"></i> 지하철 이용시</h3>
+        <p>부산 지하철 2호선 <strong>금련산역</strong> 5번 출구에서 도보 720m</p>
+    </div>
+
+    <div class="info-list" style="border-bottom: none;">
+        <h3><i class="fa-solid fa-bus"></i> 버스 이용시</h3>
+        <p>• <strong>금련산청소년수련원 역</strong> 하차 후 도보 447m<br>• <strong>수영구청 역</strong> 하차 후 도보 296m</p>
+    </div>
+    
+    <div class="contact-box">
+        <h2>열정가득 <span>서프마린</span>에서<br>여름의 특별한 추억 만들어가세요 ♥</h2>
+        <p><strong>문의:</strong> 010-9587-2070</p>
+        <p><strong>운영시간:</strong> 09:00 ~ 18:00</p>
+    </div>
+</div>
+
+<!-- 스크립트의 지도 좌표 수정 (실제 우진빌딩 좌표로 세팅) -->
+<!-- 카카오 지도 스크립트 부분의 35.1531696, 129.118666 위치를 
+     실제 우진빌딩 좌표(35.15077, 129.11326 등)로 변경하시면 됩니다. -->
+        </div>
+    </section>
+
+
+    <!-- 푸터 영역 (index.html의 푸터와 100% 동일하게 복사) -->
+   <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SURF MARINE</h3>
+                <p>부산 수영구 광안해변로 125 우진빌딩 지하1층 서프마린</p>
+                <p>고객센터: 070-7177-8888 | 매일 09:00 - 20:00</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SURF MARINE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+
+    <!-- ============================================== -->
+    <!-- 카카오 지도 API 스크립트 (여기서부터 지도 설정) -->
+    <!-- ============================================== -->
+    
+    <!-- 1. 카카오 지도 라이브러리 불러오기 (appkey 부분에 발급받은 JS 키 입력) -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=31ef842f89e5fdef3f29567c852a4a17"></script>
+    
+    <!-- 2. 지도 생성 및 마커 찍기 -->
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = { 
+                // 지도의 중심좌표 (위도, 경도) - 현재는 임시로 광안리 해수욕장 근처로 설정됨
+                // 구글 지도 등에서 실제 가게 위치를 우클릭하여 위도/경도를 확인하고 아래 숫자를 변경하세요.
+                center: new kakao.maps.LatLng(35.1531696, 129.118666), 
+                level: 3 // 지도의 확대 레벨 (숫자가 작을수록 확대됨)
+            };
+
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+        // 마커가 표시될 위치입니다 
+        var markerPosition  = new kakao.maps.LatLng(35.1531696, 129.118666); 
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+        // 마커에 클릭 이벤트를 등록하거나 인포윈도우(말풍선)를 띄울 수도 있습니다.
+        var iwContent = '<div style="padding:5px; text-align:center; font-weight:bold; font-size:14px;">서프마린 <br><a href="https://map.kakao.com/link/map/서프마린,35.1531696,129.118666" style="color:blue" target="_blank">큰지도보기</a></div>', // 인포윈도우에 표출될 내용
+            iwPosition = new kakao.maps.LatLng(35.1531696, 129.118666); //인포윈도우 표시 위치
+
+        // 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            position : iwPosition, 
+            content : iwContent 
+        });
+        
+        // 마커 위에 인포윈도우를 표시합니다.
+        infowindow.open(map, marker);
+    </script>
+
+</body>
+</html>

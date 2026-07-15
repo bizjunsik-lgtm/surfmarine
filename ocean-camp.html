@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURF MARINE | 나의 실력 찾기</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 서브페이지 공통 스타일 */
+        .sub-header {
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-top: 80px;
+        }
+
+        .sub-content {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            min-height: 500px;
+            text-align: center;
+        }
+        /* =========================================================
+           해양캠프 전용 랜딩페이지 스타일
+        ========================================================= */
+        .camp-page { font-family: 'Noto Sans KR', sans-serif; line-height: 1.6; color: #333; }
+        .camp-section { padding: 80px 20px; text-align: center; }
+        .camp-container { max-width: 1000px; margin: 0 auto; }
+        
+        /* 공통 포인트 컬러 */
+        .text-navy { color: #002b5e; }
+        .text-orange { color: #ff6b4a; }
+        .bg-light-blue { background-color: #f4f8fd; }
+        .bg-navy { background-color: #002b5e; color: #fff; }
+
+        /* 1. 히어로 섹션 */
+        .hero-camp { background: #f4f8fd; padding: 100px 20px 60px; }
+        .hero-camp h2 { font-size: 24px; color: #002b5e; font-weight: bold; margin-bottom: 10px; }
+        .hero-camp h1 { font-size: 52px; color: #ff6b4a; font-weight: 900; margin-bottom: 40px; letter-spacing: -2px; }
+        .hero-camp-imgs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+        .hero-camp-imgs img { border-radius: 10px; max-width: 100%; height: auto; object-fit: cover; }
+
+        /* 2. 고민 섹션 */
+        .worry-section { background: #fff; }
+        .worry-title { font-size: 32px; color: #002b5e; font-style: italic; font-weight: 900; margin-bottom: 40px; }
+        .worry-list { background: #f8f9fa; border-radius: 15px; padding: 40px; text-align: left; max-width: 800px; margin: 0 auto; }
+        .worry-list p { font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; border-bottom: 1px dashed #ccc; padding-bottom: 15px; }
+        .worry-list p i { color: #002b5e; margin-right: 15px; font-size: 8px; }
+        .worry-solution { font-size: 28px; font-weight: 900; color: #ff6b4a; margin-top: 40px; font-style: italic; }
+
+        /* 3. 장점(걱정은 덜었습니다) 섹션 */
+        .benefit-section { background: #f4f8fd; }
+        .benefit-title { font-size: 36px; color: #002b5e; font-weight: 900; margin-bottom: 50px; }
+        .benefit-grid { display: flex; flex-direction: column; gap: 30px; }
+        .benefit-card { display: flex; align-items: center; background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; }
+        .benefit-card img { width: 300px; height: 200px; object-fit: cover; }
+        .benefit-info { padding: 30px; }
+        .benefit-info h3 { font-size: 24px; color: #002b5e; margin-bottom: 10px; }
+        .benefit-info p { font-size: 16px; color: #666; }
+
+        /* 4. 스케줄 섹션 */
+        .schedule-section { background: #f4f8fd; padding-top: 20px; }
+        .schedule-title { font-size: 36px; color: #002b5e; font-weight: 900; margin-bottom: 40px; }
+        .schedule-table { display: flex; background: #002b5e; color: #fff; border-radius: 10px 10px 0 0; overflow: hidden; }
+        .schedule-day { flex: 1; padding: 15px 5px; text-align: center; border-right: 1px solid rgba(255,255,255,0.2); font-weight: bold; }
+        .schedule-day:last-child { border-right: none; }
+        .schedule-day span { display: block; font-size: 12px; margin-top: 5px; font-weight: normal; }
+        
+        .program-detail-card { display: flex; background: #fff; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; position: relative; }
+        .program-detail-card img { width: 50%; object-fit: cover; }
+        .program-detail-info { width: 50%; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .program-detail-info h3 { font-size: 24px; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #eee; }
+        .program-detail-info p { font-size: 16px; color: #444; word-break: keep-all; }
+        .color-blue { color: #5b8fb9; }
+        .color-green { color: #6b8e23; }
+        .color-purple { color: #8a2be2; }
+        .color-red { color: #d9534f; }
+
+        /* 5. 비교 섹션 */
+        .compare-section { background: #fff; }
+        .compare-title { font-size: 36px; font-weight: 900; color: #002b5e; margin-bottom: 40px; line-height: 1.4; }
+        .compare-wrap { display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; }
+        .compare-box { flex: 1; border: 1px solid #eee; border-radius: 10px; overflow: hidden; }
+        .compare-box img { width: 100%; height: 250px; object-fit: cover; }
+        .compare-text { padding: 30px; }
+        .compare-text h3 { font-size: 22px; margin-bottom: 15px; }
+        .compare-text ul { list-style: none; padding: 0; }
+        .compare-text li { margin-bottom: 10px; font-size: 16px; }
+        
+        .box-normal .compare-text { background: #fff; color: #666; }
+        .box-surfmarine .compare-text { background: #002b5e; color: #fff; }
+        .box-surfmarine h3 { color: #ff6b4a; }
+
+        .compare-footer { font-size: 24px; font-weight: 900; color: #002b5e; }
+
+        /* 6. 철학 및 슬로건 섹션 */
+        .philosophy-section { background: #f4f8fd; }
+        .philosophy-title { font-size: 32px; color: #002b5e; font-weight: 900; margin-bottom: 50px; line-height: 1.4; }
+        .philosophy-item { margin-bottom: 30px; text-align: left; }
+        .philosophy-item h3 { font-size: 22px; color: #ff6b4a; margin-bottom: 15px; display: flex; align-items: center; }
+        .philosophy-item h3 i { margin-right: 10px; }
+        .philosophy-item .desc-box { background: #002b5e; color: #fff; padding: 30px; border-radius: 10px; font-size: 18px; line-height: 1.6; }
+
+        .slogan-box { text-align: center; margin-top: 80px; }
+        .slogan-box h2 { font-size: 36px; color: #002b5e; font-weight: 900; line-height: 1.5; margin-bottom: 30px; }
+        .slogan-box h3 { font-size: 28px; color: #002b5e; font-weight: bold; }
+
+        /* 7. 리뷰 섹션 */
+        .review-section { background: #eef4fc; padding: 80px 20px; }
+        .review-title { font-size: 36px; color: #002b5e; font-weight: 900; line-height: 1.4; margin-bottom: 50px; }
+        .review-container { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+        .review-bubble { background: #fff; padding: 20px 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); font-size: 16px; position: relative; text-align: left; color: #002b5e; font-weight: bold; }
+        /* 말풍선 꼬리 번갈아가며 배치 */
+        .review-bubble:nth-child(odd) { align-self: flex-start; border-bottom-left-radius: 0; }
+        .review-bubble:nth-child(even) { align-self: flex-end; border-bottom-right-radius: 0; text-align: right; }
+
+        /* 모바일 반응형 */
+        @media screen and (max-width: 768px) {
+            .hero-camp h1 { font-size: 36px; }
+            .hero-camp h2 { font-size: 18px; }
+            .benefit-card { flex-direction: column; }
+            .benefit-card img { width: 100%; height: 200px; }
+            .schedule-table { flex-wrap: wrap; }
+            .schedule-day { flex: 1 1 30%; border-bottom: 1px solid rgba(255,255,255,0.2); }
+            .program-detail-card { flex-direction: column; }
+            .program-detail-card img, .program-detail-info { width: 100%; }
+            .compare-wrap { flex-direction: column; }
+            .slogan-box h2 { font-size: 24px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 영역 (index.html의 헤더와 100% 동일하게 복사) -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">SURF <span>MARINE</span></a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="intro.html">소개</a></li>
+                            <li><a href="advantages.html">장점</a></li>
+                            <li><a href="location.html">오시는길</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
+                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
+                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
+                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="notice.html">공지사항</a></li>
+                            <li><a href="faq.html">자주 묻는 질문</a></li>
+                            <li><a href="gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="find-level.html">나의 실력 찾기</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- 서브페이지 상단 타이틀 -->
+    <section class="sub-header">
+        <h1>소개</h1>
+    </section>
+
+    <!-- 1. 메인 히어로 섹션 -->
+        <section class="camp-section hero-camp">
+            <div class="camp-container">
+                <div class="hero-camp-imgs">
+                    <!-- 임시 이미지 (추후 실제 사진으로 교체) -->
+                    <img src="https://images.unsplash.com/photo-1519045391690-3ce7f3bce555?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="아이들 물놀이 1" style="width:100%; max-width:800px;">
+                </div>
+                <h2>오전 9시부터 오후 5시까지<br>믿고 맡길 수 있는 돌봄형프로그램</h2>
+                <h1>올데이 해양캠프</h1>
+            </div>
+        </section>
+
+        <!-- 2. 고민 섹션 -->
+        <section class="camp-section worry-section">
+            <div class="camp-container">
+                <h2 class="worry-title">우리아이, 이런 고민 있으신가요?</h2>
+                <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="강습 사진" style="width:100%; max-width:800px; border-radius:10px; margin-bottom:30px;">
+                
+                <div class="worry-list">
+                    <p><i class="fa-solid fa-circle"></i> 방학마다 아이를 어디에 맡겨야 할지 고민된다.</p>
+                    <p><i class="fa-solid fa-circle"></i> 하루종일 휴대폰이나 TV만 보는 시간이 늘어난다.</p>
+                    <p><i class="fa-solid fa-circle"></i> 신나게 뛰어놀면서 특별한 경험도 했으면 좋겠다.</p>
+                    <p style="border:none; padding-bottom:0;"><i class="fa-solid fa-circle"></i> 부모도 안심하고 하루를 보낼 수 있는 프로그램을 찾고있다.</p>
+                </div>
+                
+                <h3 class="worry-solution">그 고민, 서프마린이 함께 해결해드립니다.</h3>
+            </div>
+        </section>
+
+        <!-- 3. 장점 (걱정은 덜었습니다) 섹션 -->
+        <section class="camp-section benefit-section">
+            <div class="camp-container">
+                <h2 class="benefit-title">즐거움은 더하고, 걱정은 덜었습니다</h2>
+                
+                <div class="benefit-grid">
+                    <div class="benefit-card">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="피자 먹는 아이들">
+                        <div class="benefit-info">
+                            <h3>든든한 식사와 간식</h3>
+                            <p>균형 잡힌 영양식으로 아이들의 에너지를 채우고<br>오후 활동까지 즐겁게 이어갈 수 있도록 준비했습니다.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="모래놀이">
+                        <div class="benefit-info">
+                            <h3>아이들 활동 기록 공유</h3>
+                            <p>활동 사진과 영상을 공유드립니다.<br>아이의 즐거운 하루를 확인하실 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="귀가 준비">
+                        <div class="benefit-info">
+                            <h3>상쾌한 귀가</h3>
+                            <p>해양 활동 후에는 샤워까지 마친 뒤 귀가하여<br>바쁜 저녁 시간까지 더욱 편안하게 준비할 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 스케줄 섹션 -->
+        <section class="camp-section schedule-section">
+            <div class="camp-container">
+                <h2 class="schedule-title">매일이 새로운 바다 놀이터!</h2>
+                
+                <div class="schedule-table">
+                    <div class="schedule-day">MON<br><span class="color-blue">SUP/SURF<br>DAY</span></div>
+                    <div class="schedule-day">TUE<br><span class="color-green">ZERO<br>WASTE DAY</span></div>
+                    <div class="schedule-day">WED<br><span class="color-purple">SUP KIDS<br>PILATES DAY</span></div>
+                    <div class="schedule-day">THU<br><span class="color-purple">SUP KIDS<br>PILATES DAY</span></div>
+                    <div class="schedule-day">FRI<br><span class="color-blue">SUP/SURF<br>DAY</span></div>
+                    <div class="schedule-day">SAT<br><span class="color-blue">SUP/SURF<br>DAY</span></div>
+                    <div class="schedule-day">SUN<br><span class="color-red">FAMILY<br>DAY</span></div>
+                </div>
+
+                <div style="padding: 30px; background: #fff; border-radius: 0 0 10px 10px; margin-bottom: 40px; text-align: left; color:#666;">
+                    * 위 일정은 샘플 안내입니다. (기상 상황에 따라 변동 가능)
+                </div>
+
+                <!-- 요일별 상세 내용 -->
+                <div class="program-detail-card">
+                    <img src="https://images.unsplash.com/photo-1533174000255-16ccb8f05ab1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="서핑 데이">
+                    <div class="program-detail-info">
+                        <h3 class="color-blue">SUP/SURF DAY</h3>
+                        <p>바다와 가장 친해지는 시간!<br>유아체육 전문 강사진과 함께 패들보드와 서핑을 배우며, 물과 친해지고 자신감을 키워가는 시간입니다.</p>
+                    </div>
+                </div>
+
+                <div class="program-detail-card" style="flex-direction: row-reverse;">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="제로 웨이스트">
+                    <div class="program-detail-info">
+                        <h3 class="color-green">ZERO WASTE DAY</h3>
+                        <p>패트병을 활용해 나만의 배를 만들고, 직접 만든 배로 패들보드를 체험하며 환경의 소중함을 자연스럽게 배웁니다.</p>
+                    </div>
+                </div>
+
+                <div class="program-detail-card">
+                    <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="필라테스">
+                    <div class="program-detail-info">
+                        <h3 class="color-purple">SUP KIDS PILATES DAY</h3>
+                        <p>바다와 함께하는 특별한 키즈 웰니스 프로그램.<br>해변과 바다 위에서 진행하는 키즈 필라테스로 균형감각 증진, 코어강화, 신체 협응력 증진의 효과까지! 자연 속에서 몸과 마음을 건강하게 키워갑니다.</p>
+                    </div>
+                </div>
+
+                <div class="program-detail-card" style="flex-direction: row-reverse;">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="패밀리 데이">
+                    <div class="program-detail-info">
+                        <h3 class="color-red">FAMILY DAY</h3>
+                        <p>사랑하는 가족과 함께 만드는 특별한 추억!<br>오전에는 부모님과 함께 바다를 즐기고, 오후에는 친구들과 신나는 활동을 이어가며 아이들의 즐거움을 담은 프로그램입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 비교 섹션 -->
+        <section class="camp-section compare-section">
+            <div class="camp-container">
+                <h2 class="compare-title">왜 많은 부모님들이<br><span class="text-orange">서프마린</span>을 선택할까요?</h2>
+                
+                <div class="compare-wrap">
+                    <div class="compare-box box-normal">
+                        <img src="https://images.unsplash.com/photo-1538605335962-42171587bb3c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="일반 체험수업">
+                        <div class="compare-text">
+                            <h3>일반적인 체험수업</h3>
+                            <ul>
+                                <li>• 기술을 배우는 시간</li>
+                                <li>• 같은 프로그램 반복</li>
+                                <li>• 체험 중심</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="compare-box box-surfmarine">
+                        <img src="https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="서프마린 해양캠프">
+                        <div class="compare-text">
+                            <h3>서프마린 해양캠프</h3>
+                            <ul>
+                                <li>• 즐거움을 배우는 시간</li>
+                                <li>• 매일 새로운 프로그램</li>
+                                <li>• 돌봄까지 함께하는 하루</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-footer">
+                    새로운 기술을 배우는 것보다,<br>
+                    <span class="text-orange">즐거운 경험을 만드는 것</span>이 더 중요합니다.
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 철학 및 슬로건 섹션 -->
+        <section class="camp-section philosophy-section">
+            <div class="camp-container">
+                <h2 class="philosophy-title">아이가 '또 가고 싶다'고<br>말하는 캠프를 만들고 싶었습니다</h2>
+                
+                <div class="philosophy-item">
+                    <h3><i class="fa-regular fa-circle-check"></i> 진심으로 아이를 대하는 강사진 !</h3>
+                    <div class="desc-box">
+                        아이에게는 선생님도 추억입니다.<br>
+                        친구처럼 함께 뛰어놀고, 보호자처럼 세심하게 살핍니다.<br>
+                        아이의 눈높이에서 함께 웃고, 함께 뛰어놀며<br>
+                        하루를 만들어가는 선생님들이 함께합니다.
+                    </div>
+                </div>
+
+                <div class="philosophy-item">
+                    <h3><i class="fa-regular fa-circle-check"></i> 하루가 짧게 느껴지는 캠프형 수업 !</h3>
+                    <div class="desc-box">
+                        지루할 틈 없이, 하루가 금방 지나갑니다.<br>
+                        바다에서 마음껏 뛰어놀고, 먹고, 쉬고, 다시 신나게 놀며<br>
+                        아이들이 "벌써 끝이에요?"라고 말할 만큼 알찬 하루를 보냅니다.
+                    </div>
+                </div>
+
+                <div class="philosophy-item">
+                    <h3><i class="fa-regular fa-circle-check"></i> 매 순간이 새로운 즐거움 !</h3>
+                    <div class="desc-box">
+                        놀면서 배우고, 도전하며 성장합니다.<br>
+                        패들보드, 서핑, 환경 체험, 바다 필라테스까지.<br>
+                        새로운 경험 속에서 자연스럽게 자신감을 키워갑니다.
+                    </div>
+                </div>
+
+                <div class="slogan-box">
+                    <h2>
+                        또 보고 싶은 선생님.<br>
+                        또 뛰어놀고 싶은 바다.<br>
+                        또 가고 싶은 <span class="text-orange">서프마린</span>.
+                    </h2>
+                    <h3>좋아하는 마음이<br>가장 오래가는 배움입니다.</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. 리뷰 섹션 -->
+        <section class="camp-section review-section">
+            <div class="camp-container">
+                <h2 class="review-title">아이들이 먼저 만족했고,<br>부모님들이 다시 찾았습니다.</h2>
+                
+                <div class="review-container">
+                    <div class="review-bubble">
+                        아이들이 무척 즐거웠다고 합니다<br>좋은 추억 만들어주셔서 감사합니다!
+                    </div>
+                    <div class="review-bubble">
+                        진짜로 아이들만 맡기고 휴식할 수 있어서<br>너무 행복했습니다 ㅎㅎ
+                    </div>
+                    <div class="review-bubble">
+                        수고많으셨습니다!!!!<br>힘드셨을텐데 친절하게 너무 잘해주셔서 감사드립니다<br>재밌었다고 또 가자고 ㅎㅎ 만족도 최고입니다!!
+                    </div>
+                    <div class="review-bubble">
+                        아이들이 너무 재미어하고 좋아해요~<br>쌤들이 다들 친절하고 아이들도 잘 챙겨주시고<br>설명도 잘해주신다고 아이들이 또 가고 싶어하네요~!
+                    </div>
+                    <div class="review-bubble">
+                        해양캠프 너무 좋습니다<br>아이들이 너무 신나게 잘 놀았어요! 집에 오자마자 뻗을 정도로<br>재밌게 잘 놀아서 뿌듯했답니다^^
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- 푸터 영역 (index.html의 푸터와 100% 동일하게 복사) -->
+   <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SURF MARINE</h3>
+                <p>부산 수영구 광안해변로 125 우진빌딩 지하1층 서프마린</p>
+                <p>고객센터: 070-7177-8888 | 매일 09:00 - 20:00</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SURF MARINE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

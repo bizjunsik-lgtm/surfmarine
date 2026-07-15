@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SURF MARINE | 나의 실력 찾기</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 서브페이지 공통 스타일 */
+        .sub-header {
+            height: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-top: 80px;
+        }
+
+        .sub-content {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            min-height: 500px;
+            text-align: center;
+        }
+
+        .list-section { background: #fff; padding: 60px 20px; text-align: center; border-top: 1px solid #eee; }
+        .list-title { font-size: 32px; color: #002b5e; font-weight: 900; margin-bottom: 20px; }
+        .list-desc { font-size: 18px; color: #555; margin-bottom: 40px; line-height: 1.6; }
+        .price-list { max-width: 600px; margin: 0 auto; text-align: left; }
+        .price-item { padding: 25px 0; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; }
+        .price-item:last-child { border-bottom: none; }
+        .price-item-left .badge { background: #002b5e; color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 12px; margin-bottom: 10px; display: inline-block; }
+        .price-item-left h3 { font-size: 24px; color: #002b5e; margin-bottom: 5px; }
+        .price-item-left p { color: #666; font-size: 14px; }
+        .price-item-right { font-size: 28px; color: #002b5e; font-weight: 900; }
+        .notice-text { color: #d9534f; font-size: 14px; margin-top: 30px; }
+
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 영역 (index.html의 헤더와 100% 동일하게 복사) -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">SURF <span>MARINE</span></a>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="intro.html">소개</a></li>
+                            <li><a href="advantages.html">장점</a></li>
+                            <li><a href="location.html">오시는길</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
+                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
+                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
+                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="notice.html">공지사항</a></li>
+                            <li><a href="faq.html">자주 묻는 질문</a></li>
+                            <li><a href="gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="find-level.html">나의 실력 찾기</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- 서브페이지 상단 타이틀 -->
+    <section class="sub-header">
+        <h1>소개</h1>
+    </section>
+
+    <!-- 서브페이지 콘텐츠 영역 (여기를 페이지마다 다르게 수정합니다) -->
+<!-- 1. 교육+렌탈 / 서핑강습 -->
+    <section class="program-wrapper">
+        <div class="program-card">
+            <div class="program-info">
+                <div class="program-badge">선택 04</div>
+                <h2 class="program-title">교육+렌탈 프로그램</h2>
+                <p class="program-subtitle">1시간 교육 + 2시간 렌탈</p>
+                <div class="program-price"><span>1인</span> 35,000원</div>
+            </div>
+            <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+        </div>
+        <div class="program-desc" style="margin-bottom:60px;">
+            서프마린 강사와 함께 1시간 동안 쉽고 재미있게 패들보드의 기초를 배워보세요.<br>
+            강습 후에는 광안리 바다를 자유롭게 즐기며 배운 내용을 직접 경험해 볼 수 있습니다.<br>
+            처음 접하는 분들도 부담 없이 시작할 수 있는 가장 인기 있는 입문 프로그램입니다.<br>
+            <strong>1부 09:00 | 2부 12:00 | 3부 15:00</strong>
+        </div>
+
+        <div class="program-card">
+            <div class="program-info">
+                <div class="program-badge">선택 05</div>
+                <h2 class="program-title">서핑 강습</h2>
+                <p class="program-subtitle">2시간 서핑강습</p>
+                <div class="program-price"><span>1인</span> 50,000원</div>
+            </div>
+            <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+        </div>
+        <div class="program-desc">
+            파도를 타는 즐거움을 가장 제대로 경험하는 방법.<br>
+            기초부터 차근차근 배우는 전문 강습으로 처음 서핑을 접하는 분들도 안전하게 도전할 수 있습니다.<br>
+            <strong>1부 10:00 | 2부 14:00</strong>
+        </div>
+    </section>
+
+    <!-- 2. 렌탈 안내 -->
+    <section class="list-section">
+        <h2 class="list-title">렌탈</h2>
+        <p class="list-desc">강습 없이 자유롭게 패들보드를 즐기고 싶은 분들을 위한 렌탈 상품입니다.<br>광안리 바다를 원하는 속도로, 원하는 만큼 자유롭게 즐겨보세요.</p>
+        <div class="price-list">
+            <div class="price-item">
+                <div class="price-item-left"><div class="badge">선택 01</div><h3>렌탈 1시간</h3></div>
+                <div class="price-item-right">15,000원</div>
+            </div>
+            <div class="price-item">
+                <div class="price-item-left"><div class="badge">선택 02</div><h3>렌탈 2시간</h3></div>
+                <div class="price-item-right">25,000원</div>
+            </div>
+            <div class="price-item">
+                <div class="price-item-left"><div class="badge">선택 03</div><h3>렌탈 3시간</h3></div>
+                <div class="price-item-right">35,000원</div>
+            </div>
+        </div>
+        <p class="notice-text">패들보드/서핑보드/라이프자켓/패들/샤워 포함<br>*슈트는 불포함 사항으로 대여료 1만원이 별도로 발생합니다.</p>
+    </section>
+
+    <!-- 3. 회원권 안내 -->
+    <section class="list-section" style="background-color: #f4f8fd;">
+        <h2 class="list-title">회원권</h2>
+        <p class="list-desc">장비 걱정 없이 가볍게 방문하고, 광안리 바다를 일상처럼 즐겨보세요.<br>이용할수록 더욱 합리적인 가격으로 여유를 경험해 보세요.</p>
+        <div class="price-list">
+            <div class="price-item">
+                <div class="price-item-left"><div class="badge">선택 01</div><h3>1개월</h3><p>1회 개인레슨 포함</p></div>
+                <div class="price-item-right">100,000원</div>
+            </div>
+            <div class="price-item">
+                <div class="price-item-left"><div class="badge">선택 02</div><h3>2개월</h3><p>2회 개인레슨 포함</p></div>
+                <div class="price-item-right">180,000원</div>
+            </div>
+            <div class="price-item">
+                <div class="price-item-left"><div class="badge">선택 03</div><h3>3개월</h3><p>3회 개인레슨 포함</p></div>
+                <div class="price-item-right"><span style="text-decoration:line-through; font-size:16px; color:#999; margin-right:10px;">정상가 250,000원</span><br>250,000원</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 영역 (index.html의 푸터와 100% 동일하게 복사) -->
+   <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SURF MARINE</h3>
+                <p>부산 수영구 광안해변로 125 우진빌딩 지하1층 서프마린</p>
+                <p>고객센터: 070-7177-8888 | 매일 09:00 - 20:00</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SURF MARINE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
