@@ -121,7 +121,7 @@ header {
 /* --- 메인 히어로 섹션 --- */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('C:\Users\LJ\OneDrive\문서\GitHub\surfmarine\images\main.jpg') center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/main.jpg') center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
