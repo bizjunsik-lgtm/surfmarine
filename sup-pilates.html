@@ -3,122 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURF MARINE | 나의 실력 찾기</title>
+    <title>SURF MARINE | SUP 필라테스</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- FullCalendar 라이브러리 -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     <style>
-        /* 서브페이지 공통 스타일 */
-        .sub-header {
-            height: 300px;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            margin-top: 80px;
+        /* 필라테스 페이지 전용 스타일 */
+        .hero-pilates { 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover; 
+            height: 400px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #fff; 
+            text-align: center; 
+            margin-top: 80px; 
         }
 
-        .sub-content {
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 0 20px;
-            min-height: 500px;
-            text-align: center;
-        }
+        .content-wrapper { max-width: 1000px; margin: 60px auto; padding: 0 20px; font-family: 'Noto Sans KR', sans-serif; }
+        
+        /* 인트로 배너 */
+        .intro-banner { background: #f4f8fd; border-radius: 15px; padding: 25px; text-align: center; color: #002b5e; margin-bottom: 50px; font-weight: bold; border: 1px solid #e1ebf7; }
+        .intro-banner span { color: #8a2be2; font-size: 20px; display: block; margin-bottom: 5px; }
 
+        /* 메인 설명 */
+        .concept-section { text-align: center; margin-bottom: 60px; }
+        .concept-section h2 { color: #002b5e; font-size: 32px; font-weight: 900; margin-bottom: 20px; }
+        .concept-section p { font-size: 18px; color: #555; line-height: 1.8; word-break: keep-all; }
+
+        /* 정보 그리드 (강사 & 프로그램) */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+        .info-card { background: #fff; padding: 40px 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); }
+        .info-card h3 { color: #002b5e; font-size: 24px; border-bottom: 2px solid #8a2be2; padding-bottom: 15px; margin-bottom: 25px; display: flex; align-items: center; }
+        .info-card h3 i { margin-right: 10px; color: #8a2be2; }
+        
+        .instructor-name { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 15px; }
+        .info-card ul { list-style: none; padding: 0; margin-bottom: 20px; }
+        .info-card ul li { margin-bottom: 12px; position: relative; padding-left: 25px; color: #444; line-height: 1.5; }
+        .info-card ul li::before { content: '✔'; position: absolute; left: 0; color: #8a2be2; font-weight: bold; }
+        .info-card .desc-text { padding-top: 15px; border-top: 1px dashed #eee; color: #666; font-size: 15px; line-height: 1.6; }
+
+        /* 유의사항 박스 */
+        .notice-box { background: #fdf5f5; border: 1px solid #f5c2c7; padding: 30px; border-radius: 10px; color: #842029; margin-bottom: 60px; }
+        .notice-box h4 { margin-bottom: 15px; font-size: 18px; display: flex; align-items: center; }
+        .notice-box h4 i { margin-right: 8px; }
+        .notice-box ul { padding-left: 20px; margin: 0; line-height: 1.7; }
+
+        /* 캘린더 커스텀 */
+        .calendar-section { border-top: 2px solid #002b5e; padding-top: 50px; }
+        #calendar { max-width: 900px; margin: 0 auto; }
+        .fc-toolbar-title { font-size: 24px !important; color: #002b5e !important; font-weight: bold; }
+        .fc-event { cursor: default; border: none; padding: 4px; font-size: 13px; font-weight: bold; }
+        .fc-button-primary { background-color: #8a2be2 !important; border: none !important; }
+
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-
-    <!-- 헤더 영역 (index.html의 헤더와 100% 동일하게 복사) -->
+    <!-- 1. 공통 헤더 -->
     <header>
         <div class="header-container">
-            <div class="logo">
-                <a href="index.html">SURF <span>MARINE</span></a>
-            </div>
-           <nav>
-    <ul class="nav-links">
-        <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
-            <ul class="submenu"><li><a href="intro.html">소개</a></li><li><a href="advantages.html">장점</a></li><li><a href="location.html">오시는길</a></li></ul>
-        </li>
-        <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
-            <ul class="submenu">
-                <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
-                <li><a href="sunset-sup.html">선셋 패들보드</a></li>
-                <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
-                <!-- 추가된 회원권 메뉴 -->
-                <li><a href="membership.html">회원권</a></li>
-            </ul>
-        </li>
-        <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
-            <ul class="submenu">
-                <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
-                <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
-                <!-- 추가된 SUP 필라테스, 대회/행사 메뉴 -->
-                <li><a href="sup-pilates.html">SUP 필라테스</a></li>
-                <li><a href="event-info.html">대회 및 행사 안내</a></li>
-            </ul>
-        </li>
-        <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
-            <ul class="submenu"><li><a href="notice.html">공지사항</a></li><li><a href="faq.html">자주 묻는 질문</a></li><li><a href="gallery.html">갤러리</a></li></ul>
-        </li>
-        <li><a href="find-level.html">나의 실력 찾기</a></li>
-    </ul>
-</nav>
-            <div class="burger">
-                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
-            </div>
+            <div class="logo"><a href="index.html">SURF <span>MARINE</span></a></div>
+            <nav>
+                <ul class="nav-links">
+                    <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu"><li><a href="intro.html">소개</a></li><li><a href="advantages.html">장점</a></li><li><a href="location.html">오시는길</a></li></ul>
+                    </li>
+                    <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
+                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
+                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
+                            <li><a href="membership.html">회원권</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
+                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
+                            <li><a href="sup-pilates.html">SUP 필라테스</a></li>
+                            <li><a href="event-info.html">대회 및 행사 안내</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu"><li><a href="notice.html">공지사항</a></li><li><a href="faq.html">자주 묻는 질문</a></li><li><a href="gallery.html">갤러리</a></li></ul>
+                    </li>
+                    <li><a href="find-level.html">나의 실력 찾기</a></li>
+                </ul>
+            </nav>
+            <div class="burger"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div>
         </div>
     </header>
 
-
-    <!-- 서브페이지 상단 타이틀 -->
-    <section class="sub-header">
-        <h1>소개</h1>
+    <!-- 2. 히어로 타이틀 -->
+    <section class="hero-pilates">
+        <div>
+            <h1 style="font-size:42px; margin-bottom:15px; font-weight:900;">SUP 필라테스</h1>
+            <p style="font-size:18px;">바다 위에서 몸과 마음의 균형을 찾는 특별한 웰니스 프로그램</p>
+        </div>
     </section>
 
-    <!-- 서브페이지 콘텐츠 영역 (여기를 페이지마다 다르게 수정합니다) -->
-<section class="program-wrapper">
-        <div class="program-card">
-            <div class="program-info">
-                <div class="program-badge">선택 03</div>
-                <h2 class="program-title">SUP 선셋 버스킹</h2>
-                <p class="program-subtitle">기초교육 + 일몰 2시간 투어링 + 버스킹 공연</p>
-                <div class="program-price">
-                    <span>1인</span> 40,000원
+    <!-- 3. 상세 콘텐츠 영역 -->
+    <section class="content-wrapper">
+        
+        <div class="intro-banner">
+            <span>해양 캠프 프로그램에서 만나실 수 있습니다!</span>
+            필라테스 프로그램은 매주 수, 목 진행됩니다.<br>
+            <span style="font-size:14px; color:#666; font-weight:normal; margin-top:10px;">* 별도 클래스 진행은 문의 바랍니다 :)</span>
+        </div>
+
+        <div class="concept-section">
+            <h2>바다 위에서 자라는 균형과 자신감</h2>
+            <p>잔잔한 바다 위에 띄운 패들보드에서 진행되는 40분 키즈 오션 필라테스 프로그램입니다.<br>
+            흔들리는 보드 위에서 아이들은 놀이처럼 몸을 움직이며<br>자연스럽게 균형감각, 코어 근력, 집중력, 신체 협응력을 기릅니다.<br><br>
+            탁 트인 바다와 파도 소리를 느끼며 몸과 마음을 함께 성장시키는,<br>자연 속 특별한 웰니스 클래스를 경험해 보세요.</p>
+        </div>
+
+        <div class="info-grid">
+            <!-- 강사 소개 -->
+            <div class="info-card">
+                <h3><i class="fa-solid fa-user-check"></i> Instructor</h3>
+                <div class="instructor-name">정현주 강사</div>
+                <ul>
+                    <li>물리치료사</li>
+                    <li>필라테스 지도 경력 11년</li>
+                    <li>SUP(패들보드) 강사</li>
+                    <li>아쿠아 플로트 요가 강사</li>
+                </ul>
+                <div class="desc-text">
+                    오랜 지도 경험과 해양 스포츠 전문성을 바탕으로,<br>아이들의 안전을 최우선으로 생각하며 즐겁고 건강한 움직임을 만들어갑니다.
                 </div>
             </div>
-            <div class="program-img" style="background-image: url('https://images.unsplash.com/photo-1533174000255-16ccb8f05ab1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+
+            <!-- 프로그램 안내 -->
+            <div class="info-card">
+                <h3><i class="fa-solid fa-clipboard-list"></i> Program</h3>
+                <ul style="margin-top: 20px;">
+                    <li><strong>수업 시간 :</strong> 40분</li>
+                    <li>패들보드 위에서 진행되는 소그룹 클래스</li>
+                    <li>균형감각 · 코어 강화 · 집중력 · 신체 협응력 향상</li>
+                    <li>자연과 함께하는 특별한 바다 웰니스 프로그램</li>
+                </ul>
+            </div>
         </div>
-        <div class="program-desc">
-            <strong>7~8월 매주 수·금·토·일</strong><br><br>
-            선셋 투어링과 함께 광안리 버스킹 공연을 즐겨보세요.<br>
-            노을과 음악이 함께하는 더욱 특별한 시간을 선사합니다.<br><br>
-            <span style="font-size:14px; color:#666;">※ 수요일 공연은 신청 인원 5명 미만 시 취소될 수 있습니다.</span>
+
+        <!-- 유의사항 -->
+        <div class="notice-box">
+            <h4><i class="fa-solid fa-circle-exclamation"></i> Notice (유의사항)</h4>
+            <ul>
+                <li>구명조끼를 착용하고 안전하게 진행됩니다.</li>
+                <li>기상 및 해양 상황(강풍, 풍랑, 우천 등)에 따라 수업 장소가 변경되거나 일정이 연기 또는 취소될 수 있습니다.</li>
+                <li>안전한 수업 운영을 위해 강사의 안내를 반드시 따라주시기 바랍니다.</li>
+            </ul>
         </div>
+
+        <!-- 4. 캘린더 영역 -->
+        <div class="calendar-section">
+            <h2 style="text-align:center; font-size:32px; color:#002b5e; margin-bottom:30px;">SUP 필라테스 일정</h2>
+            <div id='calendar'></div>
+        </div>
+
     </section>
 
-<!-- 버스킹 일정 달력 섹션 -->
-<section class="camp-section" style="background-color: #fff; padding: 60px 20px;">
-    <div class="camp-container" style="max-width: 900px; margin: 0 auto;">
-        <h2 style="font-size: 32px; color: #002b5e; font-weight: 900; margin-bottom: 20px; text-align: center;">버스킹 일정 캘린더</h2>
-        <p style="color: #d9534f; font-size: 16px; margin-bottom: 40px; text-align: center; font-weight:bold;">※ 기상 상황(우천, 풍랑주의보 등)에 따라 일정이 실시간으로 취소될 수 있습니다.</p>
-        
-        <!-- FullCalendar 라이브러리 CSS/JS 불러오기 -->
-        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
-        
-        <!-- 달력이 그려질 영역 -->
-        <div id='calendar'></div>
-    </div>
-</section>
+    <!-- 5. 공통 푸터 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SURF MARINE</h3>
+                <p>부산광역시 수영구 광안해변로 125</p>
+                <p>고객센터: 010-9587-2070 | 운영시간 09:00 - 18:00</p>
+            </div>
+        </div>
+    </footer>
 
-<!-- 파이어베이스 데이터 불러와서 달력에 그리기 -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    <!-- 모바일 메뉴 동작 스크립트 -->
+    <script src="script.js"></script>
 
-    // ★ 관리자 페이지와 동일한 firebaseConfig 입력 ★
-    const firebaseConfig = {
+    <!-- 파이어베이스 및 캘린더 연동 스크립트 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // ★ [중요] 여기에 본인의 파이어베이스 설정값을 반드시 덮어씌워 주세요! ★
+        const firebaseConfig = {
             apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
             authDomain: "surfmarine-143fb.firebaseapp.com",
             projectId: "surfmarine-143fb",
@@ -126,68 +196,43 @@
             messagingSenderId: "846325894079",
             appId: "1:846325894079:web:83486c9f1f99f3aef4ef0a",
             measurementId: "G-S4EHTN0B4Z"
-    };
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-    document.addEventListener('DOMContentLoaded', async function() {
-        // 1. 파이어베이스에서 일정 데이터 가져오기
-        const eventsArray = [];
-        const querySnapshot = await getDocs(collection(db, "busking_events"));
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            eventsArray.push({
-                title: data.title,
-                start: data.date,
-                color: data.color // 관리자에서 지정한 색상 (남색 또는 빨강)
-            });
+        document.addEventListener('DOMContentLoaded', async function() {
+            const eventsArray = [];
+            try {
+                // 정확히 "pilates_events" 컬렉션만 불러오도록 지정!
+                const querySnapshot = await getDocs(collection(db, "pilates_events"));
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    eventsArray.push({ 
+                        title: data.title, 
+                        start: data.date, 
+                        color: data.color // 관리자에서 지정한 보라색 또는 빨간색
+                    });
+                });
+
+                // FullCalendar 랜더링
+                var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+                    initialView: 'dayGridMonth', 
+                    locale: 'ko',
+                    headerToolbar: { 
+                        left: 'prev,next', 
+                        center: 'title', 
+                        right: 'today' 
+                    },
+                    events: eventsArray
+                });
+                calendar.render();
+
+            } catch (error) {
+                console.error("캘린더 데이터를 불러오는 중 에러 발생:", error);
+                document.getElementById('calendar').innerHTML = "<p style='text-align:center; color:red; padding:30px;'>일정 데이터를 불러오지 못했습니다.</p>";
+            }
         });
-
-        // 2. FullCalendar 실행
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            locale: 'ko', // 한국어 설정
-            headerToolbar: {
-                left: 'prev,next',
-                center: 'title',
-                right: 'today'
-            },
-            events: eventsArray // 파이어베이스에서 가져온 일정 배열 삽입
-        });
-        
-        calendar.render();
-    });
-</script>
-
-<style>
-    /* 캘린더 커스텀 스타일 */
-    #calendar { max-width: 900px; margin: 0 auto; font-family: 'Noto Sans KR', sans-serif; }
-    .fc-toolbar-title { font-size: 24px !important; color: #002b5e !important; font-weight: bold; }
-    .fc-event { cursor: default; border: none; padding: 3px; font-size: 12px; }
-    .fc-button-primary { background-color: #002b5e !important; border: none !important; }
-</style>
-
-    <!-- 푸터 영역 (index.html의 푸터와 100% 동일하게 복사) -->
-   <footer>
-        <div class="footer-content">
-            <div class="footer-info">
-                <h3>SURF MARINE</h3>
-                <p>부산 수영구 광안해변로 125 우진빌딩 지하1층 서프마린</p>
-                <p>고객센터: 070-7177-8888 | 매일 09:00 - 20:00</p>
-            </div>
-            <div class="footer-social">
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 SURF MARINE. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+    </script>
 </body>
 </html>
