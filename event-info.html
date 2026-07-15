@@ -3,37 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURF MARINE | 공지사항</title>
+    <title>SURF MARINE | 대회 및 행사 안내</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .sub-header { height: 300px; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover; display: flex; align-items: center; justify-content: center; color: #fff; margin-top: 80px; }
-        .sub-content { max-width: 900px; margin: 60px auto; padding: 0 20px; min-height: 500px; }
-        .sub-content h2 { font-size: 32px; margin-bottom: 40px; color: #002b5e; text-align: center; }
-
-        /* 공지사항 아코디언 리스트 스타일 */
-        .notice-container { border-top: 2px solid #002b5e; }
-        .notice-item { border-bottom: 1px solid #ddd; }
-        
-        .notice-title-box { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #fff; cursor: pointer; transition: background 0.3s; }
-        .notice-title-box:hover { background: #f4f8fd; }
-        .notice-title { font-size: 18px; font-weight: bold; color: #333; }
-        .notice-date { font-size: 14px; color: #999; }
-        
-        /* 웹 에디터로 작성한 내용이 들어가는 곳 */
-        .notice-content { display: none; padding: 40px 20px; background: #fafafa; border-top: 1px dashed #eee; font-size: 16px; line-height: 1.8; color: #444; }
-        .notice-content.active { display: block; }
-        
-        /* 웹 에디터 안의 이미지, 링크 등이 예쁘게 보이도록 설정 */
-        .notice-content img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 8px; }
-        .notice-content a { color: #007bff; text-decoration: underline; }
-        .notice-content ul, .notice-content ol { padding-left: 20px; margin-bottom: 15px; }
-
-        .empty-notice { text-align: center; padding: 50px; color: #999; font-size: 16px; }
-
-
         .event-header { text-align: center; padding: 60px 20px; background: #f4f8fd; margin-top: 80px; }
-        .event-grid { max-width: 1200px; margin: 50px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        .event-grid { max-width: 1200px; margin: 50px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; min-height: 400px; }
         
         /* 카드 디자인 */
         .event-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); cursor: pointer; transition: transform 0.3s; }
@@ -51,86 +26,59 @@
         #modal-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; display: none; }
         #modal-title { font-size: 28px; color: #002b5e; margin-bottom: 10px; }
         #modal-date { color: #ff6b4a; font-weight: bold; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        #modal-body img { max-width: 100%; height: auto; } /* 에디터 내부 이미지 반응형 */
+        #modal-body img { max-width: 100%; height: auto; }
     </style>
 </head>
 <body>
-    <!-- 공통 헤더 -->
+    <!-- 1. 공통 헤더 -->
     <header>
         <div class="header-container">
             <div class="logo"><a href="index.html">SURF <span>MARINE</span></a></div>
             <nav>
-    <ul class="nav-links">
-        <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
-            <ul class="submenu"><li><a href="intro.html">소개</a></li><li><a href="advantages.html">장점</a></li><li><a href="location.html">오시는길</a></li></ul>
-        </li>
-        <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
-            <ul class="submenu">
-                <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
-                <li><a href="sunset-sup.html">선셋 패들보드</a></li>
-                <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
-                <!-- 추가된 회원권 메뉴 -->
-                <li><a href="membership.html">회원권</a></li>
-            </ul>
-        </li>
-        <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
-            <ul class="submenu">
-                <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
-                <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
-                <!-- 추가된 SUP 필라테스, 대회/행사 메뉴 -->
-                <li><a href="sup-pilates.html">SUP 필라테스</a></li>
-                <li><a href="event-info.html">대회 및 행사 안내</a></li>
-            </ul>
-        </li>
-        <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
-            <ul class="submenu"><li><a href="notice.html">공지사항</a></li><li><a href="faq.html">자주 묻는 질문</a></li><li><a href="gallery.html">갤러리</a></li></ul>
-        </li>
-        <li><a href="find-level.html">나의 실력 찾기</a></li>
-    </ul>
-</nav>
+                <ul class="nav-links">
+                    <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu"><li><a href="intro.html">소개</a></li><li><a href="advantages.html">장점</a></li><li><a href="location.html">오시는길</a></li></ul>
+                    </li>
+                    <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
+                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
+                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
+                            <li><a href="membership.html">회원권</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
+                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
+                            <li><a href="sup-pilates.html">SUP 필라테스</a></li>
+                            <li><a href="event-info.html">대회 및 행사 안내</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="submenu"><li><a href="notice.html">공지사항</a></li><li><a href="faq.html">자주 묻는 질문</a></li><li><a href="gallery.html">갤러리</a></li></ul>
+                    </li>
+                    <li><a href="find-level.html">나의 실력 찾기</a></li>
+                </ul>
+            </nav>
             <div class="burger"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div>
         </div>
     </header>
 
-    <section class="sub-header">
-        <h1>공지사항</h1>
-    </section>
-
-    <section class="sub-content">
-        <h2>서프마린 새소식</h2>
-        
-        <!-- 공지사항 리스트가 출력될 영역 -->
-        <div class="notice-container" id="notice-board">
-            <div class="empty-notice"><i class="fa-solid fa-spinner fa-spin"></i> 소식을 불러오는 중입니다...</div>
-        </div>
-    </section>
-
-    <!-- 공통 푸터 -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-info">
-                <h3>SURF MARINE</h3>
-                <p>부산광역시 수영구 광안해변로 125</p>
-                <p>고객센터: 010-9587-2070 | 운영시간 09:00 - 18:00</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 공통 스크립트 (모바일 햄버거 메뉴 등) -->
-    <script src="script.js"></script>
-
-<div class="burger"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div></header>
-
+    <!-- 2. 본문 콘텐츠 영역 -->
     <div class="event-header">
         <h1 style="font-size: 36px; color: #002b5e;">대회 및 행사 안내</h1>
         <p style="color: #666; margin-top: 10px;">서프마린에서 열리는 특별한 이벤트 소식을 확인하세요.</p>
     </div>
 
+    <!-- 카드 리스트가 그려질 공간 -->
     <div class="event-grid" id="event-grid">
-        <div style="text-align:center; grid-column: 1 / -1; color:#999;"><i class="fa-solid fa-spinner fa-spin"></i> 데이터를 불러오는 중입니다...</div>
+        <div style="text-align:center; grid-column: 1 / -1; color:#999; padding: 50px;">
+            <i class="fa-solid fa-spinner fa-spin"></i> 데이터를 불러오는 중입니다...
+        </div>
     </div>
 
-    <!-- 모달 창 -->
+    <!-- 모달 창 (숨겨져 있음) -->
     <div class="modal" id="event-modal">
         <div class="modal-content">
             <span class="close-btn" id="close-modal">&times;</span>
@@ -141,20 +89,32 @@
         </div>
     </div>
 
-    <!-- 파이어베이스 스크립트 시작 -->
+    <!-- 3. 푸터 (가장 아래에 위치해야 함!) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>SURF MARINE</h3>
+                <p>부산광역시 수영구 광안해변로 125</p>
+                <p>고객센터: 010-9587-2070 | 운영시간 09:00 - 18:00</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 4. 자바스크립트 영역 -->
+    <script src="script.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // ★ [중요] 여기에 본인의 파이어베이스 설정값을 반드시 덮어씌워 주세요! ★
         const firebaseConfig = {
-                apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
-                authDomain: "surfmarine-143fb.firebaseapp.com",
-                projectId: "surfmarine-143fb",
-                storageBucket: "surfmarine-143fb.firebasestorage.app",
-                messagingSenderId: "846325894079",
-                appId: "1:846325894079:web:83486c9f1f99f3aef4ef0a",
-                measurementId: "G-S4EHTN0B4Z"
+            apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
+            authDomain: "surfmarine-143fb.firebaseapp.com",
+            projectId: "surfmarine-143fb",
+            storageBucket: "surfmarine-143fb.firebasestorage.app",
+            messagingSenderId: "846325894079",
+            appId: "1:846325894079:web:83486c9f1f99f3aef4ef0a",
+            measurementId: "G-S4EHTN0B4Z"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -164,25 +124,21 @@
             const gridUI = document.getElementById('event-grid');
             
             try {
-                // 1. 파이어베이스에서 데이터 불러오기 시도
                 const q = query(collection(db, "contests_events"), orderBy("createdAt", "desc"));
                 const querySnapshot = await getDocs(q);
                 
-                gridUI.innerHTML = ''; // 로딩 스피너 제거
+                gridUI.innerHTML = ''; 
 
-                // 2. 등록된 행사가 없을 경우
                 if (querySnapshot.empty) { 
                     gridUI.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; padding: 50px; color:#666;">등록된 행사가 없습니다.</p>'; 
                     return; 
                 }
 
-                // 3. 행사 카드 생성
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     const card = document.createElement('div');
                     card.className = 'event-card';
                     
-                    // 썸네일 이미지가 없을 경우 기본 이미지 적용
                     const thumb = data.thumbnail || 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80';
                     
                     card.innerHTML = `
@@ -193,7 +149,6 @@
                         </div>
                     `;
                     
-                    // 카드 클릭 시 모달(팝업) 열기
                     card.addEventListener('click', () => {
                         document.getElementById('modal-image').src = thumb;
                         document.getElementById('modal-image').style.display = data.thumbnail ? 'block' : 'none';
@@ -207,7 +162,6 @@
                 });
 
             } catch (error) {
-                // 에러 발생 시 로딩바를 없애고 원인을 화면에 빨간 글씨로 출력합니다.
                 console.error("Firebase 로딩 에러:", error);
                 gridUI.innerHTML = `
                     <div style="grid-column: 1 / -1; text-align:center; padding: 50px; color:#d9534f; background:#fff; border-radius:10px; border:1px solid #ffcccc;">
@@ -219,7 +173,6 @@
                 `;
             }
 
-            // 모달 닫기 로직
             document.getElementById('close-modal').addEventListener('click', () => {
                 document.getElementById('event-modal').classList.remove('active');
             });
