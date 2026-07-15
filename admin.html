@@ -3,35 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURF MARINE | 관리자 페이지</title>
+    <title>SURF MARINE | 통합 관리자</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Quill.js 에디터 CSS 불러오기 -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <style>
         body { background-color: #f4f8fd; padding: 50px 20px; font-family: 'Noto Sans KR', sans-serif; }
-        .admin-container { max-width: 600px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .admin-container { max-width: 900px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         h1 { color: #002b5e; text-align: center; margin-bottom: 30px; }
         
         /* 로그인 폼 */
-        #login-section { display: block; }
+        #login-section { display: block; max-width: 400px; margin: 0 auto; }
         .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; }
-        .btn { width: 100%; padding: 15px; background: #002b5e; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; }
+        .input-group input, .input-group select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 15px; background: #002b5e; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn:hover { opacity: 0.9; }
         
-        /* 대시보드 (일정 관리 폼) */
+        /* 대시보드 탭 */
         #dashboard-section { display: none; }
-        .event-form { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .tab-menu { display: flex; border-bottom: 2px solid #eee; margin-bottom: 30px; }
+        .tab-btn { flex: 1; background: none; border: none; padding: 15px; font-size: 18px; font-weight: bold; color: #999; cursor: pointer; transition: 0.3s; }
+        .tab-btn.active { color: #002b5e; border-bottom: 3px solid #ff6b4a; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* 폼 및 리스트 디자인 */
+        .event-form { background: #f8f9fa; padding: 30px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #eee; }
         .event-list { list-style: none; padding: 0; }
-        .event-item { background: #fff; border: 1px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .event-item { background: #fff; border: 1px solid #ddd; padding: 20px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
         .btn-delete { background: #d9534f; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
-        .logout-btn { background: #666; margin-top: 30px; }
+        .logout-btn { background: #666; margin-top: 50px; width: auto; padding: 10px 30px; display: block; margin-left: auto; }
+
+        /* 에디터 스타일 */
+        #editor-container { height: 300px; background: #fff; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <div class="admin-container">
-        <h1><span style="color:#ff6b4a;">서프마린</span> 일정 관리자</h1>
+        <h1><span style="color:#ff6b4a;">서프마린</span> 통합 관리자</h1>
 
-        <!-- 로그인 섹션 -->
+        <!-- 1. 로그인 섹션 -->
         <div id="login-section">
             <div class="input-group">
                 <label>이메일</label>
@@ -44,44 +58,110 @@
             <button class="btn" id="login-btn">로그인</button>
         </div>
 
-        <!-- 대시보드 섹션 (로그인 성공 시 표시됨) -->
+        <!-- 2. 대시보드 섹션 -->
         <div id="dashboard-section">
-            <div class="event-form">
-                <h3 style="margin-bottom: 15px;">새 일정 등록</h3>
-                <div class="input-group">
-                    <label>날짜</label>
-                    <input type="date" id="event-date">
-                </div>
-                <div class="input-group">
-                    <label>일정 내용</label>
-                    <input type="text" id="event-title" placeholder="예: [정상진행] 선셋 버스킹">
-                </div>
-                <div class="input-group">
-                    <label>색상 (상태)</label>
-                    <select id="event-color" style="width: 100%; padding: 12px; border-radius: 8px;">
-                        <option value="#002b5e">정상 진행 (남색)</option>
-                        <option value="#d9534f">우천 취소 (빨강)</option>
-                    </select>
-                </div>
-                <button class="btn" id="add-event-btn" style="background: #ff6b4a;">일정 추가하기</button>
+            
+            <!-- 탭 버튼 -->
+            <div class="tab-menu">
+                <button class="tab-btn active" onclick="openTab('tab-busking')">선셋 버스킹 일정</button>
+                <button class="tab-btn" onclick="openTab('tab-pilates')">SUP 필라테스 일정</button>
+                <button class="tab-btn" onclick="openTab('tab-notice')">공지사항 등록</button>
             </div>
 
-            <h3>등록된 일정 관리</h3>
-            <ul class="event-list" id="event-list">
-                <!-- 자바스크립트로 일정이 여기에 불러와집니다 -->
-            </ul>
+            <!-- 탭 1: 선셋 버스킹 -->
+            <div id="tab-busking" class="tab-content active">
+                <div class="event-form">
+                    <h3>새 버스킹 일정 등록</h3>
+                    <div class="input-group"><label>날짜</label><input type="date" id="busking-date"></div>
+                    <div class="input-group"><label>일정 내용</label><input type="text" id="busking-title" placeholder="예: [정상진행] 선셋 버스킹"></div>
+                    <div class="input-group">
+                        <label>상태 색상</label>
+                        <select id="busking-color">
+                            <option value="#002b5e">정상 진행 (남색)</option><option value="#d9534f">우천/기상악화 취소 (빨강)</option>
+                        </select>
+                    </div>
+                    <button class="btn" id="btn-add-busking" style="background:#ff6b4a;">일정 추가하기</button>
+                </div>
+                <h3>등록된 버스킹 일정</h3>
+                <ul class="event-list" id="list-busking"></ul>
+            </div>
+
+            <!-- 탭 2: SUP 필라테스 -->
+            <div id="tab-pilates" class="tab-content">
+                <div class="event-form">
+                    <h3>새 필라테스 일정 등록</h3>
+                    <div class="input-group"><label>날짜</label><input type="date" id="pilates-date"></div>
+                    <div class="input-group"><label>일정 내용</label><input type="text" id="pilates-title" placeholder="예: [모집중] 오전 10시 키즈 필라테스"></div>
+                    <div class="input-group">
+                        <label>상태 색상</label>
+                        <select id="pilates-color">
+                            <option value="#8a2be2">정상 진행 (보라색)</option><option value="#d9534f">취소 (빨강)</option>
+                        </select>
+                    </div>
+                    <button class="btn" id="btn-add-pilates" style="background:#8a2be2;">일정 추가하기</button>
+                </div>
+                <h3>등록된 필라테스 일정</h3>
+                <ul class="event-list" id="list-pilates"></ul>
+            </div>
+
+            <!-- 탭 3: 공지사항 -->
+            <div id="tab-notice" class="tab-content">
+                <div class="event-form">
+                    <h3>새 공지사항 작성</h3>
+                    <div class="input-group">
+                        <label>제목</label>
+                        <input type="text" id="notice-title" placeholder="공지사항 제목을 입력하세요">
+                    </div>
+                    <div class="input-group">
+                        <label>내용 (이미지, 링크, HTML 삽입 가능)</label>
+                        <!-- 웹 에디터 영역 -->
+                        <div id="editor-container"></div>
+                    </div>
+                    <button class="btn" id="btn-add-notice" style="background:#002b5e;">공지사항 등록하기</button>
+                </div>
+                <h3>등록된 공지사항 목록</h3>
+                <ul class="event-list" id="list-notice"></ul>
+            </div>
 
             <button class="btn logout-btn" id="logout-btn">로그아웃</button>
         </div>
     </div>
 
-    <!-- Firebase v9 모듈 불러오기 -->
+    <!-- Quill.js 스크립트 -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        // 탭 전환 함수
+        function openTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Quill 웹 에디터 초기화 설정 (툴바 메뉴 구성)
+        var quill = new Quill('#editor-container', {
+            theme: 'snow',
+            placeholder: '여기에 공지사항 내용을 자유롭게 작성하세요...',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['link', 'image', 'video'], /* 이미지, 영상, 링크 삽입 버튼 */
+                    ['clean']
+                ]
+            }
+        });
+    </script>
+
+    <!-- Firebase v9 연동 로직 -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // ★ 여기에 파이어베이스 콘솔에서 발급받은 본인의 config 값을 넣으세요 ★
+        // ★ 여기에 파이어베이스 설정값 복사해서 붙여넣기 ★
         const firebaseConfig = {
             apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
             authDomain: "surfmarine-143fb.firebaseapp.com",
@@ -96,88 +176,123 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // UI 요소
-        const loginSection = document.getElementById('login-section');
-        const dashboardSection = document.getElementById('dashboard-section');
-        const eventListUI = document.getElementById('event-list');
-
-        // 로그인 상태 감지
+        // 로그인 상태 체크
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                loginSection.style.display = 'none';
-                dashboardSection.style.display = 'block';
-                loadEvents(); // 로그인 성공 시 일정 불러오기
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+                loadData('busking_events', 'list-busking');
+                loadData('pilates_events', 'list-pilates');
+                loadNotices();
             } else {
-                loginSection.style.display = 'block';
-                dashboardSection.style.display = 'none';
+                document.getElementById('login-section').style.display = 'block';
+                document.getElementById('dashboard-section').style.display = 'none';
             }
         });
 
-        // 로그인 버튼 클릭
         document.getElementById('login-btn').addEventListener('click', () => {
-            const email = document.getElementById('admin-email').value;
-            const pw = document.getElementById('admin-pw').value;
-            signInWithEmailAndPassword(auth, email, pw)
+            signInWithEmailAndPassword(auth, document.getElementById('admin-email').value, document.getElementById('admin-pw').value)
                 .then(() => alert("로그인 성공!"))
-                .catch((error) => alert("로그인 실패: 정보를 확인해주세요."));
+                .catch(() => alert("로그인 실패: 정보를 확인해주세요."));
         });
 
-        // 로그아웃 버튼 클릭
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            signOut(auth);
-        });
+        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // 일정 추가 버튼 클릭
-        document.getElementById('add-event-btn').addEventListener('click', async () => {
-            const date = document.getElementById('event-date').value;
-            const title = document.getElementById('event-title').value;
-            const color = document.getElementById('event-color').value;
+        // -------------------------
+        // 1. 공통 일정 추가/불러오기 함수 (버스킹, 필라테스용)
+        // -------------------------
+        async function addEvent(collectionName, dateId, titleId, colorId, listId) {
+            const date = document.getElementById(dateId).value;
+            const title = document.getElementById(titleId).value;
+            const color = document.getElementById(colorId).value;
+            if(!date || !title) return alert("날짜와 내용을 입력하세요.");
+            
+            await addDoc(collection(db, collectionName), { date, title, color });
+            alert("일정이 등록되었습니다.");
+            document.getElementById(titleId).value = '';
+            loadData(collectionName, listId);
+        }
 
-            if(!date || !title) return alert("날짜와 내용을 모두 입력하세요.");
-
-            try {
-                await addDoc(collection(db, "busking_events"), {
-                    date: date,
-                    title: title,
-                    color: color
-                });
-                alert("일정이 등록되었습니다.");
-                document.getElementById('event-title').value = '';
-                loadEvents(); // 목록 새로고침
-            } catch (e) {
-                console.error("Error adding document: ", e);
-            }
-        });
-
-        // 일정 목록 불러오기
-        async function loadEvents() {
-            eventListUI.innerHTML = '';
-            const q = query(collection(db, "busking_events"), orderBy("date", "desc"));
+        async function loadData(collectionName, listId) {
+            const listUI = document.getElementById(listId);
+            listUI.innerHTML = '';
+            const q = query(collection(db, collectionName), orderBy("date", "desc"));
             const querySnapshot = await getDocs(q);
             
             querySnapshot.forEach((documentSnapshot) => {
                 const data = documentSnapshot.data();
                 const id = documentSnapshot.id;
-                
-                const li = document.createElement('li');
-                li.className = 'event-item';
-                li.innerHTML = `
-                    <div>
-                        <strong>${data.date}</strong> <br> 
-                        <span style="color:${data.color}; font-weight:bold;">${data.title}</span>
-                    </div>
-                    <button class="btn-delete" data-id="${id}">삭제</button>
-                `;
-                eventListUI.appendChild(li);
+                listUI.innerHTML += `
+                    <li class="event-item">
+                        <div><strong>${data.date}</strong> <br> <span style="color:${data.color}; font-weight:bold;">${data.title}</span></div>
+                        <button class="btn-delete" data-id="${id}" data-col="${collectionName}">삭제</button>
+                    </li>`;
             });
+            attachDeleteEvents();
+        }
 
-            // 삭제 버튼 이벤트 부여
+        document.getElementById('btn-add-busking').addEventListener('click', () => addEvent('busking_events', 'busking-date', 'busking-title', 'busking-color', 'list-busking'));
+        document.getElementById('btn-add-pilates').addEventListener('click', () => addEvent('pilates_events', 'pilates-date', 'pilates-title', 'pilates-color', 'list-pilates'));
+
+        // -------------------------
+        // 2. 공지사항 추가/불러오기 로직
+        // -------------------------
+        document.getElementById('btn-add-notice').addEventListener('click', async () => {
+            const title = document.getElementById('notice-title').value;
+            const content = document.querySelector('#editor-container .ql-editor').innerHTML; // 에디터의 HTML 태그 그대로 가져오기
+            const plainText = document.querySelector('#editor-container .ql-editor').innerText; // 내용 유무 확인용
+
+            if(!title || plainText.trim() === '') return alert("제목과 내용을 모두 입력하세요.");
+
+            // 현재 날짜 구하기 (YYYY-MM-DD)
+            const today = new Date().toISOString().split('T')[0];
+
+            await addDoc(collection(db, "notices"), {
+                title: title,
+                content: content,
+                date: today,
+                createdAt: serverTimestamp()
+            });
+            
+            alert("공지사항이 등록되었습니다.");
+            document.getElementById('notice-title').value = '';
+            document.querySelector('#editor-container .ql-editor').innerHTML = ''; // 에디터 초기화
+            loadNotices();
+        });
+
+        async function loadNotices() {
+            const listUI = document.getElementById('list-notice');
+            listUI.innerHTML = '';
+            const q = query(collection(db, "notices"), orderBy("createdAt", "desc"));
+            const querySnapshot = await getDocs(q);
+            
+            querySnapshot.forEach((documentSnapshot) => {
+                const data = documentSnapshot.data();
+                const id = documentSnapshot.id;
+                listUI.innerHTML += `
+                    <li class="event-item">
+                        <div><strong>${data.title}</strong> <br> <span style="color:#999; font-size:14px;">등록일: ${data.date}</span></div>
+                        <button class="btn-delete" data-id="${id}" data-col="notices">삭제</button>
+                    </li>`;
+            });
+            attachDeleteEvents();
+        }
+
+        // 공통 삭제 이벤트
+        function attachDeleteEvents() {
             document.querySelectorAll('.btn-delete').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    if(confirm("정말 이 일정을 삭제하시겠습니까?")) {
+                // 중복 이벤트 방지를 위해 clone
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                newBtn.addEventListener('click', async (e) => {
+                    if(confirm("정말 삭제하시겠습니까?")) {
                         const id = e.target.getAttribute('data-id');
-                        await deleteDoc(doc(db, "busking_events", id));
-                        loadEvents();
+                        const col = e.target.getAttribute('data-col');
+                        await deleteDoc(doc(db, col, id));
+                        if(col === 'busking_events') loadData('busking_events', 'list-busking');
+                        else if(col === 'pilates_events') loadData('pilates_events', 'list-pilates');
+                        else if(col === 'notices') loadNotices();
                     }
                 });
             });
