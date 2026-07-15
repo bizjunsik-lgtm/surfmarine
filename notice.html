@@ -3,108 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURF MARINE | 나의 실력 찾기</title>
+    <title>SURF MARINE | 공지사항</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* 서브페이지 공통 스타일 */
-        .sub-header {
-            height: 300px;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            margin-top: 80px;
-        }
+        .sub-header { height: 300px; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover; display: flex; align-items: center; justify-content: center; color: #fff; margin-top: 80px; }
+        .sub-content { max-width: 900px; margin: 60px auto; padding: 0 20px; min-height: 500px; }
+        .sub-content h2 { font-size: 32px; margin-bottom: 40px; color: #002b5e; text-align: center; }
 
-        .sub-content {
-            max-width: 800px;
-            margin: 60px auto;
-            padding: 0 20px;
-            min-height: 500px;
-            text-align: center;
-        }
+        /* 공지사항 아코디언 리스트 스타일 */
+        .notice-container { border-top: 2px solid #002b5e; }
+        .notice-item { border-bottom: 1px solid #ddd; }
+        
+        .notice-title-box { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #fff; cursor: pointer; transition: background 0.3s; }
+        .notice-title-box:hover { background: #f4f8fd; }
+        .notice-title { font-size: 18px; font-weight: bold; color: #333; }
+        .notice-date { font-size: 14px; color: #999; }
+        
+        /* 웹 에디터로 작성한 내용이 들어가는 곳 */
+        .notice-content { display: none; padding: 40px 20px; background: #fafafa; border-top: 1px dashed #eee; font-size: 16px; line-height: 1.8; color: #444; }
+        .notice-content.active { display: block; }
+        
+        /* 웹 에디터 안의 이미지, 링크 등이 예쁘게 보이도록 설정 */
+        .notice-content img { max-width: 100%; height: auto; display: block; margin: 15px 0; border-radius: 8px; }
+        .notice-content a { color: #007bff; text-decoration: underline; }
+        .notice-content ul, .notice-content ol { padding-left: 20px; margin-bottom: 15px; }
 
+        .empty-notice { text-align: center; padding: 50px; color: #999; font-size: 16px; }
     </style>
 </head>
 <body>
-
-    <!-- 헤더 영역 (index.html의 헤더와 100% 동일하게 복사) -->
+    <!-- 공통 헤더 -->
     <header>
         <div class="header-container">
-            <div class="logo">
-                <a href="index.html">SURF <span>MARINE</span></a>
-            </div>
+            <div class="logo"><a href="index.html">SURF <span>MARINE</span></a></div>
             <nav>
                 <ul class="nav-links">
                     <li class="dropdown"><a href="intro.html">서프마린소개 <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li><a href="intro.html">소개</a></li>
-                            <li><a href="advantages.html">장점</a></li>
-                            <li><a href="location.html">오시는길</a></li>
-                        </ul>
+                        <ul class="submenu"><li><a href="intro.html">소개</a></li><li><a href="advantages.html">장점</a></li><li><a href="location.html">오시는길</a></li></ul>
                     </li>
                     <li class="dropdown"><a href="sunrise-sup.html">패들보드강습 <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li><a href="sunrise-sup.html">선라이즈 패들보드</a></li>
-                            <li><a href="sunset-sup.html">선셋 패들보드</a></li>
-                            <li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li>
-                        </ul>
+                        <ul class="submenu"><li><a href="sunrise-sup.html">선라이즈 패들보드</a></li><li><a href="sunset-sup.html">선셋 패들보드</a></li><li><a href="edu-rental-sup.html">교육+렌탈 패들보드</a></li></ul>
                     </li>
                     <li class="dropdown"><a href="sunset-busking.html">SUP 이벤트 <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li><a href="sunset-busking.html">선셋 버스킹 공연</a></li>
-                            <li><a href="ocean-camp.html">해양 소년 캠프</a></li>
-                        </ul>
+                        <ul class="submenu"><li><a href="sunset-busking.html">선셋 버스킹 공연</a></li><li><a href="ocean-camp.html">해양 소년 캠프</a></li></ul>
                     </li>
                     <li class="dropdown"><a href="notice.html">커뮤니티 <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="submenu">
-                            <li><a href="notice.html">공지사항</a></li>
-                            <li><a href="faq.html">자주 묻는 질문</a></li>
-                            <li><a href="gallery.html">갤러리</a></li>
-                        </ul>
+                        <ul class="submenu"><li><a href="notice.html">공지사항</a></li><li><a href="faq.html">자주 묻는 질문</a></li><li><a href="gallery.html">갤러리</a></li></ul>
                     </li>
                     <li><a href="find-level.html">나의 실력 찾기</a></li>
                 </ul>
             </nav>
-            <div class="burger">
-                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
-            </div>
+            <div class="burger"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div>
         </div>
     </header>
 
-
-    <!-- 서브페이지 상단 타이틀 -->
     <section class="sub-header">
-        <h1>소개</h1>
+        <h1>공지사항</h1>
     </section>
 
-    <!-- 서브페이지 콘텐츠 영역 (여기를 페이지마다 다르게 수정합니다) -->
     <section class="sub-content">
-        <h2>소제목</h2>
-        <p>여기에 소개, 장점, 강습 내용, 게시판 등 해당 페이지의 내용을 자유롭게 작성합니다.</p>
+        <h2>서프마린 새소식</h2>
+        
+        <!-- 공지사항 리스트가 출력될 영역 -->
+        <div class="notice-container" id="notice-board">
+            <div class="empty-notice"><i class="fa-solid fa-spinner fa-spin"></i> 소식을 불러오는 중입니다...</div>
+        </div>
     </section>
 
-    <!-- 푸터 영역 (index.html의 푸터와 100% 동일하게 복사) -->
-   <footer>
+    <!-- 공통 푸터 -->
+    <footer>
         <div class="footer-content">
             <div class="footer-info">
                 <h3>SURF MARINE</h3>
-                <p>부산 수영구 광안해변로 125 우진빌딩 지하1층 서프마린</p>
-                <p>고객센터: 070-7177-8888 | 매일 09:00 - 20:00</p>
+                <p>부산광역시 수영구 광안해변로 125</p>
+                <p>고객센터: 010-9587-2070 | 운영시간 09:00 - 18:00</p>
             </div>
-            <div class="footer-social">
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 SURF MARINE. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <!-- 공통 스크립트 (모바일 햄버거 메뉴 등) -->
     <script src="script.js"></script>
+
+    <!-- 파이어베이스 데이터 불러오기 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // ★ 여기에 파이어베이스 설정값 복사해서 붙여넣기 ★
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
+            authDomain: "surfmarine-143fb.firebaseapp.com",
+            projectId: "surfmarine-143fb",
+            storageBucket: "surfmarine-143fb.firebasestorage.app",
+            messagingSenderId: "846325894079",
+            appId: "1:846325894079:web:83486c9f1f99f3aef4ef0a",
+            measurementId: "G-S4EHTN0B4Z"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            const boardUI = document.getElementById('notice-board');
+            
+            try {
+                // 작성일(createdAt) 기준으로 최신 글이 위에 오도록 정렬
+                const q = query(collection(db, "notices"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                boardUI.innerHTML = ''; // 로딩 스피너 제거
+
+                if (querySnapshot.empty) {
+                    boardUI.innerHTML = '<div class="empty-notice">등록된 공지사항이 없습니다.</div>';
+                    return;
+                }
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    
+                    // HTML 조립
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'notice-item';
+                    itemDiv.innerHTML = `
+                        <div class="notice-title-box">
+                            <span class="notice-title">${data.title}</span>
+                            <span class="notice-date">${data.date} <i class="fa-solid fa-chevron-down" style="margin-left:10px; color:#ccc;"></i></span>
+                        </div>
+                        <div class="notice-content">
+                            <!-- 관리자가 에디터로 작성한 HTML 내용이 그대로 출력됨 -->
+                            ${data.content}
+                        </div>
+                    `;
+                    
+                    boardUI.appendChild(itemDiv);
+                });
+
+                // 제목 클릭 시 내용 펼치기/접기 (아코디언 효과)
+                document.querySelectorAll('.notice-title-box').forEach(box => {
+                    box.addEventListener('click', function() {
+                        const content = this.nextElementSibling;
+                        // 열려있는 다른 내용 닫기 (선택 사항)
+                        document.querySelectorAll('.notice-content').forEach(c => {
+                            if(c !== content) c.classList.remove('active');
+                        });
+                        // 클릭한 내용 토글
+                        content.classList.toggle('active');
+                    });
+                });
+
+            } catch (error) {
+                console.error("데이터 불러오기 에러: ", error);
+                boardUI.innerHTML = '<div class="empty-notice">데이터를 불러오는 중 오류가 발생했습니다.</div>';
+            }
+        });
+    </script>
 </body>
 </html>
