@@ -146,15 +146,14 @@
         import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // ★ 파이어베이스 키 입력 ★
-        const firebaseConfig = { 
-            apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
+        const firebaseConfig = 
+        { apiKey: "AIzaSyCpHsWiagzodYRqXyb67dZSJrLiutTGWvU",
             authDomain: "surfmarine-143fb.firebaseapp.com",
             projectId: "surfmarine-143fb",
             storageBucket: "surfmarine-143fb.firebasestorage.app",
             messagingSenderId: "846325894079",
             appId: "1:846325894079:web:83486c9f1f99f3aef4ef0a",
-            measurementId: "G-S4EHTN0B4Z"
-         };
+            measurementId: "G-S4EHTN0B4Z"};
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
